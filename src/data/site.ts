@@ -38,7 +38,7 @@ export const social = [
 
 export const footerCols = [
   { title: 'Festival Arabesques', links: [
-    { label: 'UNi’SONS', href: 'https://www.unisons.fr/' },
+    { label: 'UNi’SONS', href: 'https://unisons-presentation.vercel.app/' },
     { label: 'La programmation', href: '/programmation' },
     { label: 'Caravane Arabesques', href: '/caravane-arabesques' },
     { label: 'Nos partenaires', href: '/partenaires' },
