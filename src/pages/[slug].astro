@@ -1,0 +1,26 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
+import PageBlocks from '../components/PageBlocks.astro';
+import { loadCms } from '../lib/cms';
+
+// Pages créées dans Sanity (type « Page libre ») : une adresse = une page.
+// Une adresse déjà prise par une page du site est ignorée : la page du site gagne toujours.
+export async function getStaticPaths() {
+  const cms = await loadCms();
+  const prises = new Set(Object.keys(import.meta.glob('./*.astro')).map((f) => f.replace(/^\.\/|\.astro$/g, '')));
+  const vues = new Set<string>();
+  return (cms?.pages ?? [])
+    .filter((p) => {
+      if (prises.has(p.slug) || vues.has(p.slug) || ['festival', 'presse', 'programmation', 'l-art-est-public'].includes(p.slug)) return false;
+      vues.add(p.slug);
+      return true;
+    })
+    .map((page) => ({ params: { slug: page.slug }, props: { page } }));
+}
+const { page } = Astro.props;
+---
+<Base title={`${page.title} | Festival Arabesques`} description={page.description} crumb={page.title}>
+  <PageHead align="left" label={page.label || 'Festival Arabesques'} title={page.title} sub={page.sub} />
+  <PageBlocks blocks={page.blocks ?? []} />
+</Base>

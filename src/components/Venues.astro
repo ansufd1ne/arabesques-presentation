@@ -1,0 +1,54 @@
+---
+import { Picture } from 'astro:assets';
+import opera from '../assets/photos/opera.jpg';
+import domaine from '../assets/photos/convivialite.jpg';
+import halle from '../assets/photos/halle-sound-system.jpg';
+const venues = [
+  { id: 'opera-comedie', name: 'Opéra Comédie', address: '11 Boulevard Victor Hugo, 34000 Montpellier', text: 'Ouverture du festival, mardi 8 et mercredi 9 septembre.', img: opera, alt: 'Déambulation devant l’Opéra Comédie de Montpellier' },
+  { id: 'domaine-do', name: 'Domaine d’O', address: '178 Rue de la Carrierasse, Montpellier', text: 'Deux week-ends de concerts, du 11 au 13 et du 18 au 20 septembre.', img: domaine, alt: 'Le public installé dans les jardins du Domaine d’O' },
+  { id: 'halle-tropisme', name: 'Halle Tropisme', address: '121 Rue Fontcouverte, 34000 Montpellier', text: 'Soirée Arabesques Sound System, jeudi 17 septembre.', img: halle, alt: 'La Louuve en concert lors de la soirée Arabesques Sound System' },
+];
+---
+<section class="venues" data-stack aria-labelledby="venues-title">
+  <div class="stage">
+    <div class="head">
+      <p class="label">Les lieux</p>
+      <h2 id="venues-title" class="display">Où ça se passe</h2>
+    </div>
+    <ol class="cards">
+      {venues.map((v, i) => (
+        <li class="card" data-card style={`z-index:${10 - i}`}>
+          <Picture src={v.img} formats={['avif', 'webp']} fallbackFormat="webp" widths={[480, 800, 1200]} sizes="(max-width: 900px) 100vw, 560px" alt={v.alt} loading="lazy" />
+          <div class="txt">
+            <p class="label">{String(i + 1).padStart(2, '0')} / 03</p>
+            <h3 class="display">{v.name}</h3>
+            <p class="addr">{v.address}</p>
+            <p class="detail">{v.text}</p>
+            <a class="bracket" href={`/informations-pratiques#${v.id}`}>Voir l’accès</a>
+          </div>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
+
+<style>
+  .venues { height: 320vh; padding: 0 var(--pad); }
+  .stage { position: sticky; top: 0; height: 100vh; display: grid; align-content: center; gap: 28px; perspective: 1200px; }
+  .head h2 { font-size: var(--text-5xl); line-height: 1.1; margin-top: 16px; }
+  .cards { position: relative; height: min(58vh, 520px); }
+  .card { position: absolute; inset: 0; display: grid; grid-template-columns: 1.15fr 1fr; background: var(--bg-2); border: 1px solid var(--line); overflow: hidden; will-change: transform, opacity; }
+  .card :global(img) { width: 100%; height: 100%; object-fit: cover; }
+  .txt { display: flex; flex-direction: column; gap: 14px; padding: 36px; }
+  .txt h3 { font-size: var(--text-4xl); line-height: 1.05; }
+  .addr { color: var(--white); font-weight: 500; }
+  .txt .bracket { margin-top: auto; align-self: start; }
+  @media (max-width: 900px) {
+    .venues { height: auto; padding-block: 56px; }
+    .stage { position: static; height: auto; perspective: none; }
+    .cards { height: auto; display: grid; gap: 20px; }
+    .card { position: static; grid-template-columns: 1fr; }
+    .card :global(img) { aspect-ratio: 4 / 3; height: auto; }
+    .txt { padding: 24px; }
+  }
+</style>

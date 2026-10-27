@@ -1,0 +1,73 @@
+---
+import { Picture } from 'astro:assets';
+import type { CmsPageBlock } from '../lib/cms';
+import { toImageMetadata, picProps, widthsFor } from '../lib/cms';
+import { renderBlocks } from '../lib/portable';
+interface Props { blocks: CmsPageBlock[]; }
+const { blocks } = Astro.props;
+const safeUrl = (u: string) => (/^(\/(?!\/)|https:\/\/)/.test(u) ? u : '/');
+---
+<div class="blocks">
+  {blocks.map((b) => {
+    if (b._type === 'texte') return (
+      <section class="b-text" data-reveal="bottom">
+        {b.heading && <h2 class="display">{b.heading}</h2>}
+        <div class="rich" set:html={renderBlocks(b.body)} />
+      </section>
+    );
+    if (b._type === 'imageSeule' && b.image) {
+      const m = toImageMetadata(b.image);
+      return (
+        <figure class="b-image" data-reveal="bottom">
+          <Picture {...picProps(m)} formats={['avif', 'webp']} fallbackFormat="webp" widths={widthsFor(m, [640, 1280, 1920])} sizes="(max-width: 1200px) 100vw, 1200px" alt={b.alt} loading="lazy" />
+          {b.caption && <figcaption>{b.caption}</figcaption>}
+        </figure>
+      );
+    }
+    if (b._type === 'texteImage' && b.image) {
+      const m = toImageMetadata(b.image);
+      return (
+        <section class={`b-split ${b.side === 'right' ? 'flip' : ''}`}>
+          <div class="media" data-reveal={b.side === 'right' ? 'right' : 'left'}>
+            <Picture {...picProps(m)} formats={['avif', 'webp']} fallbackFormat="webp" widths={widthsFor(m, [480, 640, 1280])} sizes="(max-width: 900px) 100vw, 580px" alt={b.alt} loading="lazy" />
+          </div>
+          <div class="txt" data-reveal={b.side === 'right' ? 'left' : 'right'}>
+            <h2 class="display">{b.heading}</h2>
+            <div class="rich" set:html={renderBlocks(b.body)} />
+          </div>
+        </section>
+      );
+    }
+    if (b._type === 'bouton') {
+      const href = safeUrl(b.url);
+      const ext = href.startsWith('https://');
+      return (
+        <div class="b-btn" data-reveal="bottom">
+          <a class="bracket" href={href} target={ext ? '_blank' : undefined} rel={ext ? 'noopener' : undefined}>{b.label}{ext && <span class="visually-hidden"> (nouvel onglet)</span>}</a>
+        </div>
+      );
+    }
+    return null;
+  })}
+</div>
+
+<style>
+  .blocks { padding-bottom: 100px; }
+  .b-text, .b-btn { padding: 40px var(--pad); max-width: calc(900px + 2 * var(--pad)); }
+  .b-text h2, .b-split h2 { font-size: var(--text-3xl); line-height: 1.15; margin-bottom: 20px; }
+  .b-image { padding: 40px var(--pad); margin: 0; }
+  .b-image :global(img) { width: 100%; height: auto; display: block; }
+  .b-image figcaption { margin-top: 12px; font-size: 0.875rem; }
+  .b-split { display: grid; grid-template-columns: 580px 1fr; gap: 80px; align-items: start; padding: 64px var(--pad); border-top: 1px solid var(--line); }
+  .b-split.flip { grid-template-columns: 1fr 580px; }
+  .b-split.flip .media { order: 2; }
+  .b-split .media :global(img) { width: 100%; aspect-ratio: 580 / 400; object-fit: cover; }
+  .rich :global(p), .rich :global(ul) { margin: 0 0 18px; }
+  .rich :global(ul) { padding-left: 1.2em; list-style: disc; }
+  .rich :global(h3) { font-family: var(--font-display); font-weight: 400; text-transform: uppercase; color: var(--pink); font-size: var(--text-2xl, 1.5rem); margin: 28px 0 12px; }
+  .rich :global(a) { color: var(--pink-soft); text-decoration: underline; text-underline-offset: 3px; }
+  @media (max-width: 1100px) {
+    .b-split, .b-split.flip { grid-template-columns: 1fr; gap: 28px; padding-block: 40px; }
+    .b-split.flip .media { order: 0; }
+  }
+</style>

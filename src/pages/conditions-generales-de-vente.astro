@@ -1,0 +1,10 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
+import Prose from '../components/Prose.astro';
+import html from '../data/legal/conditions-generales-de-vente.html?raw';
+---
+<Base title="Conditions générales de vente | Festival Arabesques" description="Conditions générales de vente des billets du festival Arabesques : tarifs réduit, préférentiel, spécial et conditions de gratuité.">
+  <PageHead align="left" label="Billetterie" title="Conditions générales de vente" />
+  <Prose html={html} />
+</Base>

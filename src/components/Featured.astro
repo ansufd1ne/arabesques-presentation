@@ -1,0 +1,47 @@
+---
+import { Picture } from 'astro:assets';
+import yasmine from '../assets/photos/yasmine-hamdan.jpg';
+---
+<section class="featured section" aria-labelledby="featured-title">
+  <div class="media" data-reveal="left">
+    <span class="badge display" aria-hidden="true">19 sept.</span>
+    <Picture src={yasmine} formats={['avif', 'webp']} fallbackFormat="webp" widths={[480, 628, 1256]} sizes="(max-width: 900px) 100vw, 628px" alt="Yasmine Hamdan en concert, festival Arabesques 2026" loading="lazy" data-scrub data-trigger=".featured" data-y="-9,9" />
+  </div>
+  <div class="txt" data-reveal="right">
+    <p class="label">À l’affiche en 2026</p>
+    <h2 id="featured-title" class="display">À l’affiche</h2>
+    <p class="lead upper">Du 8 au 20 septembre, l’Opéra Comédie et le Domaine d’O ont accueilli près de 300 artistes. Voici la programmation de l’édition.</p>
+    <div class="foot">
+      <h3 class="display">Yasmine Hamdan</h3>
+      <p class="links">
+        <a class="bracket" href="/programmation">Voir la programmation</a>
+        <a class="bracket muted" href="/presse">Bilan 2026</a>
+      </p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .featured { display: grid; grid-template-columns: 628px 1fr; gap: 64px; padding-block: 80px; min-height: 723px; }
+  .media { position: relative; height: 563px; }
+  .media { overflow: hidden; }
+  .media :global(img) { position: absolute; left: 0; top: -12%; width: 100%; height: 124%; object-fit: cover; }
+  .badge { position: absolute; top: 0; left: 0; background: var(--pink); color: #fff; padding: 10px 14px; font-size: 22px; line-height: 1; z-index: 1; }
+  .txt { display: flex; flex-direction: column; }
+  h2 { font-size: var(--text-4xl); line-height: 1.1; margin-top: 28px; }
+  .lead { margin-top: 24px; max-width: 590px; }
+  .foot { margin-top: auto; }
+  h3 { font-size: var(--text-3xl); }
+  .links { display: flex; gap: 32px; margin-top: 28px; flex-wrap: wrap; }
+  .muted { color: var(--muted); }
+  @media (max-width: 1100px) {
+    .featured { grid-template-columns: 1fr; gap: 28px; min-height: 0; padding-block: 64px; }
+    .media { height: auto; aspect-ratio: 4 / 3; }
+    .foot { margin-top: 36px; }
+  }
+  @media (max-width: 900px) {
+    .featured { grid-template-columns: 1fr; gap: 28px; min-height: 0; padding-block: 56px; }
+    .media { height: auto; aspect-ratio: 1/1; }
+    .foot { margin-top: 36px; }
+  }
+</style>

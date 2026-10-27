@@ -1,0 +1,35 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
+import ContactForm from '../components/ContactForm.astro';
+import BigCta from '../components/BigCta.astro';
+import { site } from '../data/site';
+---
+<Base
+  title="Contact | Festival Arabesques, UNi’SONS Montpellier"
+  description="Contactez l’équipe du festival Arabesques : infoligne 04 99 77 00 17, adresse postale et formulaire de contact."
+>
+  <PageHead align="left" label="Une question ?" title="Nous contacter" />
+  <section class="section wrap">
+    <div class="info" data-reveal="left">
+      <p class="label">Infoligne</p>
+      <p class="display"><a href="tel:+33499770017">{site.phone}</a></p>
+      <p>{site.hours}</p>
+      <p class="label">Adresse</p>
+      <p>Association UNi’SONS<br />475 Avenue du Comté de Nice<br />34080 Montpellier FRANCE</p>
+    </div>
+    <ContactForm />
+  </section>
+  <BigCta />
+</Base>
+
+<style>
+  .wrap { display: grid; grid-template-columns: 448px 1fr; gap: 0; padding-block: 24px 100px; }
+  .info { display: grid; gap: 14px; align-content: start; padding-right: 40px; }
+  .info .label { margin-top: 18px; }
+  .info .label:first-child { margin-top: 0; }
+  .info .display { font-size: var(--text-3xl); line-height: 1.1; }
+  .info a:hover { color: var(--white); }
+  @media (max-width: 1100px) { .wrap { grid-template-columns: 1fr; gap: 48px; } .info { padding-right: 0; } }
+  @media (max-width: 900px) { .wrap { grid-template-columns: 1fr; gap: 48px; } .info { padding-right: 0; } }
+</style>

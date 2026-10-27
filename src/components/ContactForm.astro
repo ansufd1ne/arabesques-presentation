@@ -1,0 +1,83 @@
+---
+import { site } from '../data/site';
+const endpoint = import.meta.env.PUBLIC_CONTACT_ENDPOINT ?? '';
+const email = site.contactEmail;
+const actif = Boolean(endpoint || email);
+const tel = site.phone;
+---
+{!actif ? (
+  <div class="notice" role="note">
+    <p><strong>Le formulaire en ligne n’est pas encore disponible.</strong> Pour nous joindre, appelez l’infoligne au <a href={`tel:+33${tel.replace(/\s/g, '').slice(1)}`}>{tel}</a> ou écrivez-nous à l’adresse postale : {site.org}, {site.address[0]}, {site.address[1].replace(' FRANCE', '')}.</p>
+  </div>
+) : (
+<form class="form" data-reveal="right" id="contact-form" method="post" action={endpoint || undefined} data-endpoint={endpoint} data-email={email} data-phone={tel} novalidate>
+  {!endpoint && <p class="intro-mail">À l’envoi, votre messagerie s’ouvre avec votre message prêt à être envoyé à l’équipe du festival.</p>}
+  <p class="req">Les champs marqués d’un astérisque (*) sont obligatoires.</p>
+  <div class="two">
+    <label>Prénom *<input name="prenom" required autocomplete="given-name" /></label>
+    <label>Nom *<input name="nom" required autocomplete="family-name" /></label>
+  </div>
+  <div class="two">
+    <label>E-mail *<input name="email" type="email" required autocomplete="email" /></label>
+    <label>Numéro de téléphone<input name="telephone" type="tel" autocomplete="tel" /></label>
+  </div>
+  <label>Message *<textarea name="message" rows="6" required></textarea></label>
+  <label class="check"><input type="checkbox" name="consentement" required data-erreur="Consentement à la politique de confidentialité" /> J’accepte la <a href="/politique-de-confidentialite">politique de confidentialité</a> en soumettant ce formulaire</label>
+  <input type="text" name="website" tabindex="-1" autocomplete="off" class="hp" aria-hidden="true" />
+  <button class="bracket send" type="submit">Envoyer</button>
+  <p class="status" role="status" aria-live="polite"></p>
+  <p class="error" role="alert"></p>
+</form>
+)}
+
+<style>
+  .form { display: grid; gap: 22px; max-width: 760px; }
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+  label { display: grid; gap: 8px; font: 500 13px/1 var(--font-body); letter-spacing: .15em; text-transform: uppercase; color: var(--white); }
+  input:not([type='checkbox']), textarea { font: 400 16px/24px var(--font-body); color: var(--white); background: var(--bg-2); border: 1px solid var(--line); border-radius: 0; padding: 14px; letter-spacing: 0; text-transform: none; }
+  input:focus-visible, textarea:focus-visible { outline: 2px solid var(--pink-soft); outline-offset: 0; }
+  .check { display: flex; gap: 12px; align-items: flex-start; font-size: 14px; letter-spacing: 0; text-transform: none; font-weight: 400; color: var(--text); line-height: 20px; }
+  .check a { color: var(--pink-soft); text-decoration: underline; }
+  .hp { position: absolute; left: -9999px; }
+  .send { justify-self: start; background: none; border: 0; cursor: pointer; padding: 8px 0; }
+  .send:disabled { opacity: .55; cursor: wait; }
+  .status, .error { font: 500 15px/24px var(--font-body); }
+  .status { min-height: 24px; color: var(--text); }
+  .status[data-state='ok'] { color: #14663a; }
+  .error:empty { display: none; }
+  .error { padding: 12px 16px; border: 2px solid #b3261e; border-left-width: 8px; background: #fdecea; color: #8c1d18; }
+  .error::before { content: 'Erreur. '; font-weight: 700; }
+  .notice { max-width: 760px; padding: 20px; border: 1px solid var(--line); border-left: 8px solid var(--pink-soft); font-size: 16px; line-height: 24px; color: var(--ink); }
+  .notice a { color: var(--pink-soft); text-decoration: underline; }
+  .req { font-size: 14px; line-height: 20px; color: var(--text); }
+  input[aria-invalid='true'], textarea[aria-invalid='true'] { border-color: #b3261e; box-shadow: inset 0 -3px 0 #b3261e; }
+  .intro-mail { max-width: 760px; font-size: 14px; line-height: 20px; color: var(--text); }  @media (max-width: 700px) { .two { grid-template-columns: 1fr; } }
+</style>
+
+<script>
+  import { initForm } from '../scripts/form-submit';
+  const form = document.getElementById('contact-form') as HTMLFormElement | null;
+  if (form) {
+    const tel = form.dataset.phone ?? '';
+    const email = form.dataset.email ?? '';
+    initForm({
+      form,
+      status: form.querySelector('.status') as HTMLElement,
+      error: form.querySelector('.error') as HTMLElement,
+      piege: 'website',
+      messages: {
+        envoi: 'Envoi en cours',
+        succes: 'Merci, votre message a bien été envoyé.',
+        echec: `L’envoi a échoué. Vos informations sont conservées : vous pouvez réessayer, ou nous appeler au ${tel}.`,
+        delai: `Le serveur met trop de temps à répondre (plus de 15 secondes). Vos informations sont conservées : vous pouvez réessayer, ou nous appeler au ${tel}.`,
+        patience: 'Merci de patienter quelques secondes avant un nouvel envoi.',
+      },
+      messageMailto: `Votre messagerie s’ouvre avec le message prêt à envoyer. Si rien ne s’ouvre, écrivez-nous à ${email} ou appelez le ${tel}.`,
+      mailto: (d) => {
+        if (!email) return null;
+        const corps = `${d.get('message')}\n\n${d.get('prenom')} ${d.get('nom')} (${d.get('email')}, ${d.get('telephone') || 'téléphone non renseigné'})`;
+        return `mailto:${email}?subject=${encodeURIComponent('Message depuis festivalarabesques.fr')}&body=${encodeURIComponent(corps)}`;
+      },
+    });
+  }
+</script>

@@ -1,0 +1,13 @@
+---
+interface Props { html: string; }
+const { html } = Astro.props;
+---
+<div class="prose" set:html={html} />
+
+<style is:global>
+  .prose { padding: 0 var(--pad) 120px; max-width: calc(900px + 2 * var(--pad)); }
+  .prose h2 { font-family: var(--font-display); font-weight: 400; text-transform: uppercase; letter-spacing: -0.02em; line-height: 1.2; color: var(--pink); font-size: var(--text-3xl); margin: 56px 0 16px; }
+  .prose p { margin: 0 0 18px; }
+  .prose p.kv { margin-bottom: 8px; color: var(--white); }
+  .prose a { color: var(--pink-soft); text-decoration: underline; text-underline-offset: 3px; }
+</style>

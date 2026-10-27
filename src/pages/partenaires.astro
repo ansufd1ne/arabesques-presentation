@@ -1,0 +1,27 @@
+---
+import { Picture } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
+import BigCta from '../components/BigCta.astro';
+import banner from '../assets/partenaires-2026.png';
+---
+<Base
+  title="Nos partenaires 2026 | Festival Arabesques, Montpellier"
+  description="Institutions, partenaires médias, partenaires culturels et soutiens du festival Arabesques 2026 à Montpellier."
+>
+  <PageHead align="left" label="Édition 2026" title="Nos partenaires" />
+  <section class="section">
+    <div class="panel" data-reveal="bottom">
+      <Picture src={banner} formats={['avif', 'webp']} fallbackFormat="webp" widths={[800, 1280, 1920]} sizes="(max-width: 900px) 100vw, 1320px" alt="Partenaires 2026 du festival Arabesques : institutions et collectivités, partenaires médias, partenaires culturels, et soutiens ayant déjà rejoint le festival" loading="eager" />
+    </div>
+    <p class="note">Le festival Arabesques est organisé par l’association UNi’SONS avec le soutien de ses partenaires publics et privés. Pour devenir partenaire, <a href="/contact">contactez-nous</a>.</p>
+  </section>
+  <BigCta />
+</Base>
+
+<style>
+  .panel { background: #fff; padding: 12px; border: 1px solid var(--line); }
+  .panel :global(img) { width: 100%; height: auto; }
+  .note { margin-top: 32px; max-width: 760px; }
+  .note a { color: var(--pink-soft); text-decoration: underline; }
+</style>

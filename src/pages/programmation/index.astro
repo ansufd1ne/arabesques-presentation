@@ -1,0 +1,44 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHead from '../../components/PageHead.astro';
+import ConcertRow from '../../components/ConcertRow.astro';
+import BigCta from '../../components/BigCta.astro';
+import { concerts, sections, properName } from '../../data/artists';
+import { site } from '../../data/site';
+
+const grouped = sections.map((s, i) => ({ ...s, items: concerts.filter((c) => c.section === i) }));
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: 'Programmation du festival Arabesques 2026',
+  itemListElement: concerts.map((c, i) => ({
+    '@type': 'ListItem', position: i + 1, url: `${site.url}/programmation/${c.slug}`, name: properName(c.name),
+  })),
+};
+---
+<Base
+  title="Programmation 2026 | Festival Arabesques"
+  description="Programmation du festival Arabesques, du 8 au 20 septembre 2026 à Montpellier : concerts à l’Opéra Comédie, au Domaine d’O et à la Halle Tropisme."
+>
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(jsonLd)} />
+  <PageHead label="Édition 2026" title="La programmation" sub="Du 8 au 20 septembre 2026 · Opéra Comédie et Domaine d’O, Montpellier" />
+  <div class="wrap">
+    {grouped.map((g, gi) => (
+      <section class="grp" aria-labelledby={`g-${g.id}`}>
+        <div class="gh" data-reveal="bottom">
+          <h2 id={`g-${g.id}`} class="display">{g.title}</h2>
+          <p class="label">{g.dates}</p>
+        </div>
+        {g.items.map((c, i) => <ConcertRow concert={c} eager={gi === 0 && i < 2} />)}
+      </section>
+    ))}
+  </div>
+  <BigCta />
+</Base>
+
+<style>
+  .wrap { padding: 0 var(--pad) 40px; }
+  .grp { margin-bottom: 72px; }
+  .gh { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 12px 32px; margin-bottom: 28px; }
+  h2 { font-size: var(--text-4xl); line-height: 1.1; }
+</style>

@@ -1,0 +1,329 @@
+{
+ "intro": "La Caravane Arabesques est une programmation artistique qui prolonge le festival et fait découvrir les arts du monde arabe. Entre deux éditions, elle se déplace dans une ville, un village, une rue, une école, un festival, un théâtre ou une grande salle de concerts pour promouvoir la diversité culturelle auprès du grand public. Elle s’appuie sur des partenariats avec différentes structures culturelles de Montpellier et de sa région, d’Europe et de plusieurs pays arabes.",
+ "upcoming": [
+  {
+   "name": "TUQUS",
+   "when": "21 OCT. · L’AGORA, MONTPELLIER",
+   "url": "https://www.latelline.org/tuqus/"
+  },
+  {
+   "name": "CHRISTINE ZAYED",
+   "when": "24 OCT. · LE QUARTZ, ST CHÉLY",
+   "url": "https://sourcespoetiques.com/programme/#24oct"
+  }
+ ],
+ "past": [
+  {
+   "title": "SELIM TRIO",
+   "when": "13 JUILLET · JAVOLS",
+   "image": "selim-trio-13-juillet-javols.jpg",
+   "url": null
+  },
+  {
+   "title": "HOMMAGE À RACHID TAHA",
+   "when": "17 JUILLET · BÉZIERS",
+   "image": "hommage-a-rachid-taha-17-juillet-beziers.jpg",
+   "url": null
+  },
+  {
+   "title": "HOMMAGE À RACHID TAHA",
+   "when": "18 JUILLET · CHANAC",
+   "image": "hommage-a-rachid-taha-18-juillet-chanac.jpg",
+   "url": null
+  },
+  {
+   "title": "KABAREH CHEIKHATS",
+   "when": "5 AVRIL · SETE",
+   "image": "kabareh-cheikhats-5-avril-sete.png",
+   "url": null
+  },
+  {
+   "title": "BACHAR MAR KHALIFE",
+   "when": "6 FEV · SETE",
+   "image": "bachar-mar-khalife-6-fev-sete.jpg",
+   "url": "https://ledancing.bazr.fr/evenement/bachar-mar-khalife/"
+  },
+  {
+   "title": "SOUAD MASSI SYMPHONIQUE",
+   "when": "8 NOV · MONTPELLIER",
+   "image": "souad-massi-symphonique-8-nov-montpellier.jpg",
+   "url": "https://www.opera-orchestre-montpellier.fr/evenements/souad-massi-symphonique/"
+  },
+  {
+   "title": "KA-IN",
+   "when": "4 JUILLET · DOMAINE DE BAYSSAN, BEZIER",
+   "image": "ka-in-4-juillet-domaine-de-bayssan-bezier.jpg",
+   "url": null
+  },
+  {
+   "title": "WAED BOUHASSOUN",
+   "when": "13 MAI · CORUM, MONTPELLIER",
+   "image": "waed-bouhassoun-13-mai-corum-montpellier.jpg",
+   "url": "https://www.opera-orchestre-montpellier.fr/evenements/waed-bouhassoun-2025/"
+  },
+  {
+   "title": "MAGYD CHERFI",
+   "when": "06 DECEMBRE · FOYER H.PAULET, CASTRIES",
+   "image": "magyd-cherfi-06-decembre-foyer-h-paulet-castries.jpg",
+   "url": null
+  },
+  {
+   "title": "DJAMRA",
+   "when": "06 DECEMBRE · LE CLUB, RODEZ",
+   "image": "djamra-06-decembre-le-club-rodez.jpg",
+   "url": null
+  },
+  {
+   "title": "LE LANCEUR DE DES",
+   "when": "17 NOVEMBRE · THEÂTRE MOLIERE, SETE",
+   "image": "le-lanceur-de-des-17-novembre-theatre-moliere-sete.jpg",
+   "url": null
+  },
+  {
+   "title": "NAQS",
+   "when": "30 MAI · THEÂTRE MOLIERE, SETE",
+   "image": "naqs-30-mai-theatre-moliere-sete.png",
+   "url": null
+  },
+  {
+   "title": "LES AVENTURES DU PRINCE AHMED",
+   "when": "04 & 05 MAI · OPERA COMEDIE MONTPELLIER",
+   "image": "les-aventures-du-prince-ahmed-04-05-mai-opera-comedie-montpe.jpg",
+   "url": null
+  },
+  {
+   "title": "IQRA",
+   "when": "02 MARS · LA PASSERELLE SETE",
+   "image": "iqra-02-mars-la-passerelle-sete.jpg",
+   "url": null
+  },
+  {
+   "title": "KALDÛN",
+   "when": "19 OCTOBRE · THEATRE MOLIERE DE SETE",
+   "image": "kaldun-i-19-octobre-i-theatre-moliere-de-sete.jpg",
+   "url": null
+  },
+  {
+   "title": "LE CRI DU CAIRE ET ERIK TRUFFAZ LE 23 & 24 SEPTEMBRE",
+   "when": "",
+   "image": "le-cri-du-caire-et-erik-truffaz-le-23-24-septembre.png",
+   "url": null
+  },
+  {
+   "title": "BOUCHRA BAKKALI",
+   "when": "25 JUILLET · SAINT-GERMAIN-DU-TEIL",
+   "image": "bouchra-bakkali-25-juillet-saint-germain-du-teil.jpg",
+   "url": null
+  },
+  {
+   "title": "LAYLA & FWAD",
+   "when": "21 & 22 JUILLET · CHANAC",
+   "image": "layla-fwad-i-21-22-juillet-i-chanac.jpg",
+   "url": null
+  },
+  {
+   "title": "L’ORCHESTRE NATIONAL DE BARBES",
+   "when": "30 JUIN · DOMAINE DE BAYSSAN",
+   "image": "l-orchestre-national-de-barbes-i-30-juin-i-domaine-de-bayssa.jpg",
+   "url": null
+  },
+  {
+   "title": "WIDAD MJAMA - AÏTA SUR LES TRACES DES CHIKHATES",
+   "when": "7 JUIN · LA PASSERELLE SÈTE",
+   "image": "widad-mjama-aita-sur-les-traces-des-chikhates-7-juin-la-pass.png",
+   "url": null
+  },
+  {
+   "title": "LE GRAND BAL RAÏ",
+   "when": "4 JUIN · MUCEM",
+   "image": "le-grand-bal-rai-4-juin-mucem.jpg",
+   "url": null
+  },
+  {
+   "title": "PETIT BAL RAÏ",
+   "when": "14 MAI · PIC’AMBULE",
+   "image": "peti-bail-rai-14-mai-pic-ambule.png",
+   "url": null
+  },
+  {
+   "title": "[‘UWRUBBA] ALI & HÈDI THABET",
+   "when": "20 JANVIER · THÉÂTRE MOLIÈRE SÈTE",
+   "image": "uwrubba-ali-hedi-thabet-20-janvier-theatre-moliere-sete.png",
+   "url": null
+  },
+  {
+   "title": "EXPOSITION LES CHIBANIS DE LUC JENNEPIN",
+   "when": "DU 02 DÉCEMBRE AU 15 JANVIER · COMMUNAUTÉ DE COMMUNES DU GÉVAUDAN · MARVEJOLS",
+   "image": "exposition-les-chibanis-de-luc-jennepin-du-02-decembre-au-15.png",
+   "url": null
+  },
+  {
+   "title": "BAZAMAT SUR LES TRACES D’AL-ANDALUS",
+   "when": "17 DÉCEMBRE · SCÈNE DE BAYSSAN · BÉZIERS",
+   "image": "bazamat-sur-les-traces-d-al-andalus-17-decembre-scene-de-bay.png",
+   "url": null
+  },
+  {
+   "title": "LES CONTES AL-ANDALUS",
+   "when": "17 ET 18 DÉCEMBRE · SCÈNE DE BAYSSAN · BÉZIERS",
+   "image": "les-contes-al-andalus-17-et-18-decembre-scene-de-bayssan-bez.png",
+   "url": null
+  },
+  {
+   "title": "LE COMTE DE BOUDERBALA",
+   "when": "16 DÉCEMBRE · SCÈNE DE BAYSSAN · BÉZIERS",
+   "image": "le-comte-de-bouderbala-16-decembre-scene-de-bayssan-beziers.png",
+   "url": null
+  },
+  {
+   "title": "LE GRAND BAL RAÏ",
+   "when": "03 DÉCEMBRE · COMMUNAUTÉ DE COMMUNES COMTAL LOT ET TRUYÈRE · ENTRAYGUES-SUR-TRUYÈRE",
+   "image": "le-grand-bal-rai-03-decembre-communaute-de-communes-comtal-l.jpg",
+   "url": null
+  },
+  {
+   "title": "PROJECTION DE PERDUS ENTRE 2 RIVES DE RACHID OUJDI",
+   "when": "03 DÉCEMBRE · COMMUNAUTÉ DE COMMUNES DU GÉVAUDAN · MARVEJOLS",
+   "image": "projection-de-perdus-entre-2-rives-de-rachid-oujdi-03-decemb.png",
+   "url": null
+  },
+  {
+   "title": "RABIE HOUTI ET L’ENSEMBLE ARABO-ANDALOUS",
+   "when": "02 DÉCEMBRE · COMMUNAUTÉ DE COMMUNES DU GÉVAUDAN · MARVEJOLS",
+   "image": "rabie-houti-et-l-ensemble-arabo-andalous-02-decembre-communa.png",
+   "url": null
+  },
+  {
+   "title": "PETIT BAL RAÏ",
+   "when": "19 NOVEMBRE · VICTOIRE 2",
+   "image": "petit-bal-rai-19-novembre-victoire-2.png",
+   "url": null
+  },
+  {
+   "title": "PETIT BAL RAÏ",
+   "when": "16 NOVEMBRE · FESTIVAL BABEL MÔMES / FESTIVAL DES MUSIQUES DU MONDE · CANAL 93 BOBIGNY",
+   "image": "petit-bal-rai-16-novembre-festival-babel-momes-festival-des-.png",
+   "url": null
+  },
+  {
+   "title": "DE BEJAÏA À SÈTE",
+   "when": "21 OCTOBRE · THÉÂTRE MOLIÈRE · SÈTE",
+   "image": "de-bejaia-a-sete-21-octobre-theatre-moliere-sete.png",
+   "url": "https://jegardelechien.fr/agenda/de-bejaia-sete-sete-34"
+  },
+  {
+   "title": "LE GRAND BAL RAÏ",
+   "when": "06 OCTOBRE · THÉÂTRE JEAN VILAR",
+   "image": "le-grand-bal-rai-06-octobre-theatre-jean-vilar.jpg",
+   "url": null
+  },
+  {
+   "title": "AÏTA, SUR LES TRACES DES CHIKHATES",
+   "when": "WIDAD MJAMA · 17 DÉCEMBRE · SCÈNE DE BAYSSAN · BÉZIERS",
+   "image": "aita-sur-les-traces-des-chikhates-widad-mjama-17-decembre-sc.jpg",
+   "url": null
+  },
+  {
+   "title": "ADNAN JOUBRAN",
+   "when": "09 SEPTEMBRE · SCÈNES CROISÉES DE LOZÈRE SAINT ALBAN SUR LIMAGNOLE",
+   "image": "adnan-joubran-09-septembre-scenes-croisees-de-lozere-saint-a.png",
+   "url": null
+  },
+  {
+   "title": "RABIE HOUTI ET L’ENSEMBLE ARABO-ANDALOUS",
+   "when": "25 JUILLET · FESTIVAL DÉTOUR DU MONDE St GERMAIN DU TEIL",
+   "image": "rabie-houti-et-l-ensemble-arabo-andalous-25-juillet-festival.png",
+   "url": null
+  },
+  {
+   "title": "ALI MERGHACHE",
+   "when": "22 JUILLET · FESTIVAL DÉTOUR DU MONDE CHANAC",
+   "image": "ali-merghache-22-juillet-festival-detour-du-monde-chanac.png",
+   "url": null
+  },
+  {
+   "title": "LE GRAND BAL RAÏ",
+   "when": "10 AVRIL · LE GRAND SUD · LILLE",
+   "image": "le-grand-bal-rai-10-avril-le-grand-sud-lille.jpg",
+   "url": null
+  },
+  {
+   "title": "BABY DOLL",
+   "when": "17 & 18 MARS · OPERA BERLIOZ MONTPELLIER",
+   "image": "baby-doll-17-18-mars-opera-berlioz-montpellier.jpg",
+   "url": null
+  },
+  {
+   "title": "WAED BOUHASSOUN",
+   "when": "8 MARS · OPERA COMEDIE MONTPELLIER",
+   "image": "waed-bouhassoun-8-mars-opera-comedie-montpellier.jpg",
+   "url": null
+  },
+  {
+   "title": "LE PETIT BAL RAÏ",
+   "when": "VENDREDI 11 FÉVRIER · LE NAYRAC · SCOLAIRE",
+   "image": "le-petit-bal-rai-vendredi-11-fevrier-le-nayrac-scolaire.png",
+   "url": null
+  },
+  {
+   "title": "LE LANCEUR DE DÉS",
+   "when": "5/02 · OPERA COMEDIE · MONTPELLIER",
+   "image": "le-lanceur-de-des-5-02-opera-comedie-montpellier.jpg",
+   "url": null
+  },
+  {
+   "title": "LE PETIT BAL RAÏ",
+   "when": "VENDREDI 4 FÉVRIER · RODEZ · SCOLAIRE",
+   "image": "le-petit-bal-rai-vendredi-4-fevrier-rodez-scolaire.png",
+   "url": null
+  },
+  {
+   "title": "NAIMA YAHI",
+   "when": "13 NOV · THEATRE MOLIERE · SÈTE",
+   "image": "naima-yahi-13-nov-theatre-moliere-sete.jpg",
+   "url": "https://tmsete.com/saisons/2021-2022/oum#avecvous"
+  },
+  {
+   "title": "LE GRAND BAL RAÏ",
+   "when": "22/10 · LA MAISON DU PEUPLE · PIERREFITTE-SUR-SCÈNE",
+   "image": "le-grand-bal-rai-22-10-la-maison-du-peuple-pierrefitte-sur-s.jpg",
+   "url": null
+  },
+  {
+   "title": "CIE KOUBI",
+   "when": "ODYSSEY · 11/09 · SCENE DE BAYSSAN · BEZIERS",
+   "image": "cie-koubi-odyssey-11-09-scene-de-bayssan-beziers.jpg",
+   "url": "https://scene-de-bayssan.herault.fr/1090-programmation.htm"
+  },
+  {
+   "title": "LE GRAND BAL RAÏ",
+   "when": "11/09 · LA GRANGE · CAUSSE DE LA SELLE",
+   "image": "le-grand-bal-rai-11-09-la-grange-causse-de-la-selle.jpg",
+   "url": "https://bouilloncube.fr/"
+  },
+  {
+   "title": "LE LANCEUR DE DÉS",
+   "when": "31/07/2021 · MRAC · SERIGNAN",
+   "image": "le-lanceur-de-des-31-07-2021-mrac-serignan.jpg",
+   "url": null
+  },
+  {
+   "title": "HAL, LE VOYAGE AMOUREUX",
+   "when": "SAMEDI 22 JANVIER · 19H ET 21H · OPERA COMEDIE MONTPELLIER",
+   "image": "hal-le-voyage-amoureux-samedi-22-janvier-19h-et-21h-opera-co.jpg",
+   "url": null
+  },
+  {
+   "title": "LE GRAND BAL RAÏ",
+   "when": "16 MARS · AGORA LE CRÈS",
+   "image": "le-grand-bal-rai-16-mars-agora-le-cres.jpg",
+   "url": null
+  },
+  {
+   "title": "SOUAD MASSI",
+   "when": "18 MARS · OPÉRA ORCHESTRE NATIONAL · MONTPELLIER",
+   "image": "souad-massi-18-mars-opera-orchestre-national-montpellier.png",
+   "url": "https://www.opera-orchestre-montpellier.fr/evenements/souad-massi/"
+  }
+ ]
+}

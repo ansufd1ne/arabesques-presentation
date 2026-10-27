@@ -1,0 +1,58 @@
+---
+import { Picture } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
+import BigCta from '../components/BigCta.astro';
+import f1 from '../assets/photos/music-forum.jpg';
+import f2 from '../assets/photos/music-forum-2.jpg';
+import f3 from '../assets/photos/table-ronde.jpg';
+const figures = [
+  { v: '100', t: 'acteurs culturels' },
+  { v: '8', t: 'pays représentés : Tunisie, Palestine, Liban, Algérie, France, Arabie Saoudite, Maroc, Égypte' },
+  { v: '8', t: 'formations artistiques présentées' },
+];
+---
+<Base
+  title="Arabesques Music Forum | Festival Arabesques 2026"
+  description="Arabesques Music Forum, rendez-vous professionnel lancé en 2026 à Montpellier : une centaine d’acteurs culturels et des artistes émergents du monde arabe."
+>
+  <PageHead align="left" label="Nouveau temps fort 2026" title="Arabesques Music Forum" />
+  <section class="intro section">
+    <p class="label" data-reveal="left">La première édition</p>
+    <div data-reveal="right">
+      <p class="display" data-highlight>Arabesques Music Forum est un rendez-vous professionnel lancé en 2026 pour les artistes émergents des scènes du monde arabe et de leurs diasporas.</p>
+      <p>Organisé dans le cadre de la Saison Méditerranée 2026 de l’Institut français, cet événement professionnel a réuni une centaine d’acteurs culturels venus de Tunisie, de Palestine, du Liban, d’Algérie, de France, d’Arabie Saoudite, du Maroc et d’Égypte.</p>
+    </div>
+  </section>
+  <ul class="figs section">
+    {figures.map((f, i) => <li data-reveal="bottom" data-reveal-delay={i * 150}><p class="display">{f.v}</p><p>{f.t}</p></li>)}
+  </ul>
+  <section class="gallery section" aria-labelledby="g-t">
+    <p class="label" data-reveal="bottom">En images</p>
+    <h2 id="g-t" class="display" data-reveal="bottom" data-reveal-delay="80">La 1ère édition d’Arabesques Music Forum</h2>
+    <div class="grid" data-reveal="bottom" data-reveal-delay="160">
+      {[f1, f2, f3].map((f, i) => <Picture src={f} formats={['avif', 'webp']} fallbackFormat="webp" widths={[480, 800, 1280]} sizes="(max-width: 900px) 100vw, 420px" alt={['Rencontre professionnelle du Music Forum', 'Temps d’échange lors du Music Forum', 'Table ronde du dimanche 20 septembre 2026'][i]} loading="lazy" />)}
+    </div>
+    <p class="credit">Crédit photo : Luc Jennepin</p>
+  </section>
+  <BigCta />
+</Base>
+
+<style>
+  .intro { display: grid; grid-template-columns: 448px 1fr; gap: 0; padding-block: 40px 80px; }
+  .intro .display { font-size: 36px; line-height: 1.33; letter-spacing: -0.02em; margin-bottom: 28px; max-width: 872px; }
+  .intro p:not(.display):not(.label) { max-width: 760px; }
+  .figs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; border-top: 1px solid var(--line); padding-block: 64px; }
+  .figs .display { font-size: var(--text-5xl); line-height: 1; }
+  .figs p:last-child { margin-top: 12px; max-width: 360px; }
+  .gallery h2 { font-size: var(--text-5xl); line-height: 1.1; margin: 24px 0 40px; max-width: 1000px; }
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .grid :global(img) { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; }
+  .credit { margin-top: 20px; font-size: 14px; font-style: italic; text-align: right; }
+  @media (max-width: 1100px) { .intro { grid-template-columns: 1fr; gap: 24px; } }
+  @media (max-width: 900px) {
+    .intro { grid-template-columns: 1fr; gap: 24px; }
+    .intro .display { font-size: 28px; }
+    .figs, .grid { grid-template-columns: 1fr; }
+  }
+</style>

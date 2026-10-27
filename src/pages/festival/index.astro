@@ -1,0 +1,52 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHead from '../../components/PageHead.astro';
+import Marquee from '../../components/Marquee.astro';
+import SplitBlock from '../../components/SplitBlock.astro';
+import Stats from '../../components/Stats.astro';
+import BigCta from '../../components/BigCta.astro';
+import blocks from '../../data/festival.json';
+import musique from '../../assets/photos/musique.jpg';
+import convivialite from '../../assets/photos/convivialite.jpg';
+import rayonnement from '../../assets/photos/rayonnement.jpg';
+import caravane from '../../assets/photos/caravane.jpg';
+
+const [intro, ...rest] = blocks;
+const imgs = [
+  { image: musique, alt: 'Un groupe sur scène lors d’une édition du festival Arabesques' },
+  { image: convivialite, alt: 'Le public installé dans les jardins du Domaine d’O' },
+  { image: rayonnement, alt: 'Foule éclairée de rouge devant la scène principale' },
+  { image: caravane, alt: 'Une artiste jouant de la trompette en concert' },
+];
+---
+<Base
+  title="Le festival Arabesques | Cultures du monde arabe à Montpellier"
+  description="Créé en 2006 par UNi’SONS, le festival Arabesques célèbre à Montpellier les cultures du monde arabe : musique, théâtre, danse, cinéma, gastronomie."
+>
+  <PageHead align="left" label="Depuis 2006" title="Le festival" />
+  <section class="intro section">
+    <p class="label" data-reveal="left">{intro.title}</p>
+    <p class="display" data-reveal="right" data-highlight>{intro.p[0]}</p>
+  </section>
+  <Marquee />
+  {rest.map((b, i) => (
+    <SplitBlock
+      title={b.title}
+      paragraphs={b.p}
+      image={imgs[i].image}
+      alt={imgs[i].alt}
+      flip={i % 2 === 1}
+      href={i === rest.length - 1 ? '/caravane-arabesques' : undefined}
+      cta="Découvrir la Caravane"
+    />
+  ))}
+  <Stats />
+  <BigCta />
+</Base>
+
+<style>
+  .intro { display: grid; grid-template-columns: 448px 1fr; padding-block: 40px 100px; }
+  .intro .display { font-size: 36px; line-height: 1.33; letter-spacing: -0.02em; max-width: 872px; }
+  @media (max-width: 1100px) { .intro { grid-template-columns: 1fr; gap: 24px; padding-bottom: 72px; } }
+  @media (max-width: 900px) { .intro { grid-template-columns: 1fr; gap: 24px; padding-bottom: 56px; } .intro .display { font-size: 28px; } }
+</style>

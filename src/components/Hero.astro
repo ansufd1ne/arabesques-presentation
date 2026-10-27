@@ -1,0 +1,109 @@
+---
+import { Picture } from 'astro:assets';
+import hero from '../assets/photos/hero.jpg';
+import { loadCms, toImageMetadata, picProps, widthsFor } from '../lib/cms';
+
+// Textes et média du hero : Sanity (document « Réglages du site »), sinon valeurs d'origine
+const cms = (await loadCms())?.hero;
+const line1 = cms?.line1 || 'Arabesques.';
+const line2 = cms?.line2 || 'Édition 2026.';
+const intro = cms?.intro || 'Festival des cultures du monde arabe à Montpellier : musique, danse, cinéma, littérature et rencontres. Dernière édition du 8 au 20 septembre 2026, prochaine du 7 au 19 septembre 2027.';
+const poster = cms?.image ? toImageMetadata(cms.image) : hero;
+const posterAlt = cms?.image?.alt || 'Entrée du festival Arabesques à la tombée de la nuit, Montpellier 2026';
+const video = cms?.mediaType === 'video' ? (cms.youtubeId ? { kind: 'youtube' as const, id: cms.youtubeId } : cms.videoUrl ? { kind: 'file' as const, url: cms.videoUrl } : null) : null;
+---
+<section class="hero" aria-labelledby="hero-title">
+  <h1 id="hero-title" class="display" data-scrub data-trigger=".hero" data-range="top-top" data-y="0px,-60px">
+    <span class="l1"><span class="in">{line1}</span></span>
+    <span class="l2"><span class="in">{line2}</span></span>
+  </h1>
+  <div class="body">
+    <p class="intro upper" data-intro="words" data-scrub data-trigger=".hero" data-range="top-top" data-y="0px,-60px">{intro}</p>
+    <div class="photo-wrap" data-scrub data-trigger=".hero" data-range="top-top" data-y="2,16">
+      {video?.kind === 'file' ? (
+        <div class="clip">
+          <video class="photo" src={video.url} poster={poster.src} muted loop playsinline controls preload="metadata" aria-label={posterAlt}></video>
+          <button type="button" class="pause" hidden aria-label="Mettre la vidéo en pause"><span aria-hidden="true">❚❚</span></button>
+        </div>
+      ) : (
+        <Picture class="photo" {...picProps(poster)} formats={['avif', 'webp']} fallbackFormat="webp" widths={widthsFor(poster, [480, 648, 960])} sizes="(max-width: 900px) 100vw, 648px" alt={posterAlt} loading="eager" fetchpriority="high" />
+      )}
+    </div>
+    <ul class="links">
+      <li><a class="bracket" href="/programmation">Programmation 2026</a></li>
+      <li><a class="bracket" href="/presse">Bilan 2026</a></li>
+      <li><a class="bracket" href="/informations-pratiques">Infos pratiques</a></li>
+    </ul>
+  </div>
+</section>
+
+<script>
+  // Vidéo en boucle : commande pause/lecture (WCAG 2.2.2). Sans JavaScript, la vidéo n'est pas lancée et garde ses commandes natives.
+  document.querySelectorAll<HTMLElement>('.hero .clip').forEach((clip) => {
+    const v = clip.querySelector('video');
+    const b = clip.querySelector<HTMLButtonElement>('.pause');
+    if (!v || !b) return;
+    v.controls = false;
+    b.hidden = false;
+    const glyph = b.querySelector('span');
+    const sync = () => {
+      const lecture = !v.paused;
+      b.setAttribute('aria-label', lecture ? 'Mettre la vidéo en pause' : 'Lire la vidéo');
+      if (glyph) glyph.textContent = lecture ? '❚❚' : '▶';
+    };
+    v.addEventListener('play', sync);
+    v.addEventListener('pause', sync);
+    b.addEventListener('click', () => { if (v.paused) v.play().catch(() => {}); else v.pause(); });
+    // Pas de lecture automatique si l'utilisateur réduit les animations
+    if (!matchMedia('(prefers-reduced-motion: reduce)').matches) v.play().catch(() => {});
+    sync();
+  });
+</script>
+
+<style>
+  .hero { padding: 150px var(--pad) 130px; min-height: 1118px; }
+  h1 { font-size: clamp(64px, 6.945vw, var(--text-6xl)); line-height: 1.45; }
+  .l1, .l2 { display: block; overflow: clip; }
+  .in { display: inline-block; }
+  /* décalages de la maquette à 1440 px (112 et 336 px), proportionnels en dessous */
+  .l1 { margin-left: min(calc(172px - var(--pad)), 7.78vw); }
+  .l2 { margin-left: min(calc(396px - var(--pad)), 23.33vw); }
+  .body { display: grid; grid-template-columns: minmax(250px, 1fr) minmax(0, 648px) minmax(250px, 1fr); column-gap: 24px; align-items: end; margin-top: 42px; }
+  .intro { max-width: 306px; color: var(--text); }
+  .photo-wrap { grid-column: 2; width: 100%; max-width: 648px; height: 490px; overflow: hidden; }
+  .photo-wrap :global(img) { display: block; width: 100%; height: 100%; object-fit: cover; }
+  .photo-wrap :global(video) { display: block; width: 100%; height: 100%; object-fit: cover; }
+  .clip { position: relative; width: 100%; height: 100%; }
+  .pause { position: absolute; right: 12px; bottom: 12px; width: 44px; height: 44px; border-radius: 50%; border: 2px solid var(--ink); background: rgba(255, 255, 255, .92); color: var(--ink); font-size: 14px; line-height: 1; cursor: pointer; display: grid; place-items: center; padding: 0; }
+  .pause[hidden] { display: none; }
+  .pause:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
+  .links { display: grid; gap: 63px; justify-items: end; padding-bottom: 8px; }
+  .links :global(.bracket) { white-space: nowrap; }
+  @media (max-width: 1330px) { .links :global(.bracket) { font-size: 14px; letter-spacing: .16em; } }
+  /* tablette : intro, photo et liens s'empilent */
+  @media (max-width: 1100px) {
+    .hero { min-height: 0; padding: 120px var(--pad) 60px; }
+    h1 { line-height: 1.1; }
+    .body { grid-template-columns: 1fr; gap: 28px; margin-top: 32px; }
+    .photo-wrap { grid-column: 1; max-width: none; height: auto; aspect-ratio: 4/3; order: 2; }
+    .intro { order: 1; max-width: 560px; }
+    .links { order: 3; justify-items: start; gap: 22px; }
+  }
+  @media (max-width: 900px) {
+    h1 { font-size: var(--text-6xl); }
+    .l1, .l2 { margin-left: 0; }
+    .intro { max-width: none; }
+  }
+
+  /* Ouverture : titre qui monte (masque), photo 1,2 → 1, liens qui montent l'un après l'autre */
+  :global(html.intro-ready) .in { animation: hero-rise .7s cubic-bezier(.37, 0, .63, 1) both; }
+  :global(html.intro-ready) .l2 .in { animation-delay: .12s; }
+  :global(html.intro-ready) .photo-wrap :global(img) { animation: hero-zoom .6s cubic-bezier(.47, 0, .745, .715) both; }
+  :global(html.intro-ready) .links li { animation: hero-rise-fade .5s cubic-bezier(.37, 0, .63, 1) both; }
+  :global(html.intro-ready) .links li:nth-child(1) { animation-delay: .25s; }
+  :global(html.intro-ready) .links li:nth-child(2) { animation-delay: .4s; }
+  :global(html.intro-ready) .links li:nth-child(3) { animation-delay: .55s; }
+  @keyframes hero-rise { from { transform: translateY(105%); } to { transform: none; } }
+  @keyframes hero-zoom { from { transform: scale(1.2); } to { transform: none; } }
+  @keyframes hero-rise-fade { from { opacity: 0; transform: translateY(60%); } to { opacity: 1; transform: none; } }
+</style>

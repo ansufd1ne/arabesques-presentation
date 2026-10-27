@@ -1,0 +1,102 @@
+---
+import { Picture } from 'astro:assets';
+import { picProps, absUrl, widthsFor } from '../../lib/cms';
+import Base from '../../layouts/Base.astro';
+import BigCta from '../../components/BigCta.astro';
+import { concerts, bySlug, neighbours, longDate, properName } from '../../data/artists';
+import { site, ids, lieuPour } from '../../data/site';
+
+export function getStaticPaths() {
+  return concerts.map((c) => ({ params: { slug: c.slug } }));
+}
+const { slug } = Astro.params;
+const c = bySlug(slug!)!;
+const { prev, next } = neighbours(c.slug);
+const name = properName(c.name);
+const when = longDate(c.date);
+const place = c.venue ? `${c.venue}, Montpellier` : 'Montpellier';
+// Aperçu de partage : 1200x630 conseillé. Original assez grand : recadré (Sanity) ; sinon image par défaut du festival.
+const og = c.image.width >= 1200 ? (/^https?:/.test(c.image.src) ? `${c.image.src}?w=1200&h=630&fit=crop` : c.image.src) : undefined;
+const ogAbs = og ? (/^https?:/.test(og) ? og : site.url + og) : site.url + '/og-default.jpg';
+// Gabarit : `${nom} | Festival Arabesques 2026`. Pour un nom très long (titre > 65 caractères), seul le début avant « : » ou « ( » est gardé.
+const suffixe = ' | Festival Arabesques 2026';
+const nomCourt = name.length + suffixe.length > 65 ? name.split(/\s*[:(]/)[0].trim() : name;
+const titre = `${nomCourt}${suffixe}`;
+const lieu = c.venue ? lieuPour(c.venue) : undefined;
+const description = `${name} en concert le ${when} 2026, ${place}. Festival Arabesques, du 8 au 20 septembre 2026.`;
+// Pas de endDate : seule la date du concert est connue (aucun horaire dans les données).
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'MusicEvent',
+  name: `${name}, Festival Arabesques 2026`,
+  description,
+  startDate: c.date,
+  eventStatus: 'https://schema.org/EventScheduled',
+  eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
+  location: {
+    '@type': 'Place', name: lieu ? lieu.name : place,
+    address: {
+      '@type': 'PostalAddress',
+      ...(lieu ? { streetAddress: lieu.street, postalCode: lieu.postal } : {}),
+      addressLocality: 'Montpellier', addressCountry: 'FR',
+    },
+  },
+  performer: { '@type': 'PerformingGroup', name },
+  organizer: { '@type': 'Organization', '@id': ids.org, name: site.org, url: 'https://www.unisons.fr/' },
+  superEvent: { '@type': 'Festival', '@id': ids.festival2026, name: 'Festival Arabesques 2026', url: `${site.url}/` },
+  image: ogAbs,
+  url: `${site.url}/programmation/${c.slug}`,
+};
+---
+<Base
+  title={titre}
+  description={description}
+  image={og}
+  crumb={name}
+>
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(jsonLd)} />
+  <article>
+    <header class="head">
+      <p class="label"><a href="/programmation">Programmation 2026</a></p>
+      <h1 class="display">{c.name}</h1>
+      <p class="meta label"><span>{when}</span><i aria-hidden="true"></i><span>{place}</span>{c.complet && <><i aria-hidden="true"></i><span class="complet">Complet</span></>}</p>
+    </header>
+
+    <Picture class="cover" {...picProps(c.image)} formats={['avif', 'webp']} fallbackFormat="webp" widths={widthsFor(c.image, [720, 1320, 2640])} sizes="(max-width: 900px) 100vw, 1320px" alt={`${name} en concert, festival Arabesques 2026`} loading="eager" fetchpriority="high" data-reveal="rise" />
+
+    <nav class="links" data-reveal="bottom" aria-label="Autres concerts">
+      {prev ? <a class="bracket" href={`/programmation/${prev.slug}`} rel="prev">← {properName(prev.name)}</a> : <span></span>}
+      <a class="bracket" href="/programmation">Toute la programmation</a>
+      {next ? <a class="bracket" href={`/programmation/${next.slug}`} rel="next">{properName(next.name)} →</a> : <span></span>}
+    </nav>
+
+    <section class="about section" aria-labelledby="about-t">
+      <p class="label" data-reveal="left">Le concert</p>
+      <div data-reveal="right">
+        <h2 id="about-t" class="display">{name}</h2>
+        <p class="txt upper">{when} 2026, {place}.{c.complet ? ' Concert complet.' : ''}</p>
+        {c.bio && <p class="txt">{c.bio}</p>}
+      </div>
+    </section>
+  </article>
+  <BigCta />
+</Base>
+
+<style>
+  .head { padding: 170px var(--pad) 0; }
+  h1 { font-size: var(--text-6xl); line-height: 1.05; margin-top: 28px; }
+  .meta { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; margin-top: 28px; color: var(--text); }
+  .meta i { width: 8px; height: 8px; background: var(--white); display: inline-block; }
+  .complet { color: var(--pink-soft); }
+  article :global(.cover) { width: calc(100% - 2 * var(--pad)); margin: 56px var(--pad) 0; aspect-ratio: 1320 / 709; object-fit: cover; }
+  .links { display: flex; justify-content: space-between; gap: 24px; flex-wrap: wrap; padding: 48px var(--pad) 0; }
+  .about { display: grid; grid-template-columns: 336px 1fr; padding-block: 100px 120px; }
+  h2 { font-size: var(--text-5xl); line-height: 1.1; }
+  .txt { margin-top: 32px; max-width: 900px; }
+  @media (max-width: 1100px) { .about { grid-template-columns: 1fr; gap: 24px; padding-block: 72px; } }
+  @media (max-width: 900px) {
+    .head { padding-top: 120px; }
+    article :global(.cover) { aspect-ratio: 4/3; }
+    .about { grid-template-columns: 1fr; gap: 24px; padding-block: 56px; }
+  }
+</style>

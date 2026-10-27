@@ -1,0 +1,15 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHead from '../../components/PageHead.astro';
+import Prose from '../../components/Prose.astro';
+import BigCta from '../../components/BigCta.astro';
+import html from '../../data/legal/communique-2026.html?raw';
+---
+<Base
+  title="Communiqué de presse 2026 | Festival Arabesques"
+  description="Bilan de la 21e édition du festival Arabesques : 54 rendez-vous dont 36 gratuits, plus de 65 000 spectateurs, près de 300 artistes."
+>
+  <PageHead align="left" label="Presse" title="Communiqué de presse 2026" />
+  <Prose html={html} />
+  <BigCta />
+</Base>

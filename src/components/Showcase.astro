@@ -1,0 +1,73 @@
+---
+import { Picture } from 'astro:assets';
+import opera from '../assets/photos/opera.jpg';
+import domaine from '../assets/photos/closing.jpg';
+import forum from '../assets/photos/music-forum.jpg';
+import soundSystem from '../assets/artists/kbira-yasmina-karrum-la-louuve.png';
+import litteraire from '../assets/photos/rencontre-litteraire.jpg';
+import deambulation from '../assets/photos/danse.jpg';
+const items = [
+  { title: 'L’ouverture à l’Opéra', text: 'Mardi 8 et mercredi 9 septembre, avec Oum et Bachar Mar-Khalifé.', href: '/programmation', img: opera, alt: 'Déambulation devant l’Opéra Comédie de Montpellier' },
+  { title: 'Deux week-ends au Domaine d’O', text: 'Concerts du vendredi au dimanche, du 11 au 13 puis du 18 au 20 septembre.', href: '/programmation', img: domaine, alt: 'Clôture du festival au Domaine d’O' },
+  { title: 'Arabesques Music Forum', text: 'Rendez-vous professionnel lancé en 2026, avec une centaine d’acteurs culturels.', href: '/arabesques-music-forum', img: forum, alt: 'Rencontre professionnelle du Music Forum' },
+  { title: 'Arabesques Sound System', text: 'Jeudi 17 septembre, de 19h30 à 0h45 : soirée 100 % féminine à la Halle Tropisme avec Kbira, Yasmina Karrum et La Louuve.', href: '/programmation/kbira-yasmina-karrum-la-louuve', img: soundSystem, alt: 'Kbira, Yasmina Karrum et La Louuve, affiche de la soirée Arabesques Sound System' },
+  { title: 'Rencontres littéraires', text: 'Auteurs et penseurs invités pour la rentrée littéraire : Driss El Yazami, Soundouss Chraïbi, Hoda Barakat, Marwan Mohammed et Mohamed El Khatib.', href: '/presse/communique-2026', img: litteraire, alt: 'Rencontre littéraire avec Hoda Barakat pendant le festival Arabesques 2026' },
+  { title: 'Déambulations', text: 'Des fanfares dans l’espace public, les écoles et les lieux du festival, pour initier petits et grands au rythme.', href: '/presse/communique-2026', img: deambulation, alt: 'Déambulation dansée dans les rues de Montpellier pendant le festival Arabesques 2026' },
+];
+---
+<section class="showcase section" aria-labelledby="showcase-title" data-hscroll>
+  <div class="pin" data-hscroll-pin>
+    <div class="head">
+      <p class="label" data-reveal="bottom">Programmation</p>
+      <h2 id="showcase-title" class="display" data-reveal="bottom" data-reveal-delay="80">Six temps forts</h2>
+      <p class="sub upper" data-reveal="bottom" data-reveal-delay="160">Opéra Comédie, Domaine d’O, Halle Tropisme, rencontres et déambulations.</p>
+    </div>
+    <div class="viewport" data-reveal="bottom" data-reveal-delay="240">
+      <div class="track" data-hscroll-track tabindex="0" role="region" aria-label="Temps forts">
+        {items.map((it) => (
+          <article class="card">
+            <div class="t">
+              <h3 class="display">{it.title}</h3>
+              <p class="upper">{it.text}</p>
+              <a class="bracket" href={it.href}>Voir plus</a>
+            </div>
+            <a class="img-wrap" data-view href={it.href} tabindex="-1" aria-hidden="true">
+              <span class="view" aria-hidden="true">Voir</span>
+              <Picture src={it.img} formats={['avif', 'webp']} fallbackFormat="webp" widths={[282, 564]} sizes="282px" alt={it.alt} loading="lazy" />
+            </a>
+          </article>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .showcase { padding-block: 80px; }
+  h2 { font-size: var(--text-5xl); line-height: 1.1; margin-top: 28px; }
+  .sub { margin-top: 24px; }
+  .viewport { margin-top: 64px; }
+
+  /* Repli (sans JavaScript, mobile, « réduire les animations ») : défilement horizontal natif, avec accroche */
+  .track { display: flex; gap: 0; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
+  .track::-webkit-scrollbar { display: none; }
+  .card { display: flex; flex: 0 0 660px; scroll-snap-align: start; border-left: 1px solid var(--line); height: 290px; }
+  .t { width: 354px; padding: 0 24px; display: flex; flex-direction: column; gap: 16px; }
+  .t h3 { font-size: 32px; line-height: 1.2; }
+  .t .bracket { margin-top: auto; padding-bottom: 8px; }
+  .img-wrap { display: block; width: 282px; height: 290px; }
+  .img-wrap :global(img) { display: block; width: 100%; height: 100%; object-fit: cover; }
+
+  /* Mode épinglé (classe posée par src/scripts/hscroll.ts) : la section reste à l'écran pendant que le
+     scroll vertical fait glisser les cartes vers la gauche ; une fois la dernière carte visible, la page repart. */
+  .showcase.hs-on { height: calc(100vh + var(--hs-distance, 0px)); padding: 0; }
+  .hs-on .pin { position: sticky; top: 0; height: 100vh; overflow: hidden; display: flex; flex-direction: column; justify-content: center; padding: 0 var(--pad); }
+  .hs-on .track { overflow: visible; scroll-snap-type: none; will-change: transform; }
+
+  @media (max-width: 900px) {
+    .card { flex: 0 0 88%; flex-direction: column; height: auto; border-left: 0; border-top: 1px solid var(--line); padding-top: 20px; margin-right: 16px; }
+    .t { width: auto; padding: 0 0 20px; }
+    .img-wrap { width: 100%; height: auto; aspect-ratio: 1/1; }
+    .showcase { padding-block: 56px; }
+  }
+</style>

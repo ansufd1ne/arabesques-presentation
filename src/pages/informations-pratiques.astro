@@ -1,0 +1,102 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
+import BigCta from '../components/BigCta.astro';
+import { site } from '../data/site';
+
+const tarifs = [
+  ['Tarif préférentiel (TPré)*', 'Moins de 25 ans, étudiant·e·s, demandeurs d’emploi, bénéficiaires du RSA ou de l’AAH'],
+  ['Tarif groupe (TG)', 'À partir de 10 personnes'],
+  ['Tarif jeune 12-18 ans*', '10 €'],
+  ['Tarif enfant moins de 12 ans*', '7 €'],
+  ['Professionnels, partenaires et C.E.', 'Nous contacter au 04 99 77 00 17'],
+  ['Gratuité', 'Pour les moins de 2 ans (billet obligatoire)'],
+];
+const pass = [['Pass 2 spectacles', '− 10 %'], ['Pass 4 spectacles', '− 20 %'], ['Pass 6 spectacles', '− 30 %']];
+const lieux = [
+  { id: 'domaine-do', nom: 'Domaine d’O', adresse: ['178 Rue de la Carrierasse', 'Montpellier'], acces: [
+    ['En transport', 'Entrée Nord uniquement (Malbosc). Tramway ligne 1, arrêt Malbosc. Bus n°24.'],
+    ['En vélo ou en voiture', 'Parking vélos et voitures. Accès aux parkings nord 1 et 2 par l’avenue Ernest Hemingway.'],
+    ['Accessibilité', 'Les spectateurs à mobilité réduite peuvent téléphoner au 06 74 83 66 92 le jour de leur venue pour être accueillis personnellement.'],
+  ], lien: { label: 'Plan du Domaine d’O', href: 'https://www.domainedo.fr/sites/default/files/atoms/files/plan_domaine_do.pdf' } },
+  { id: 'opera-comedie', nom: 'Opéra Comédie', adresse: ['11 Boulevard Victor Hugo', '34000 Montpellier'], acces: [
+    ['À pied', '1 min de la Place de la Comédie, 5 min de la gare Saint-Roch.'],
+    ['En tramway', 'Lignes 1 et 2 : arrêt Comédie. Lignes 3 et 4 : arrêt Observatoire.'],
+    ['Accessibilité', 'Emplacements réservés aux personnes à mobilité réduite. Places pour les personnes à déficience visuelle accompagnées de leur chien.'],
+  ] },
+  { id: 'halle-tropisme', nom: 'Halle Tropisme', adresse: ['121 Rue Fontcouverte', '34000 Montpellier'], acces: [
+    ['À pied ou à vélo', '25 min à pied ou 10 min à vélo de la Place de la Comédie. Parking vélo sur site.'],
+    ['En transport', 'Tramway ligne 5, station Cité Créative. Bus L11, arrêts Mas de Merle ou Gouara.'],
+    ['En voiture', 'Parking sur place, avec places réservées aux personnes à mobilité réduite. Halle accessible.'],
+  ] },
+];
+const osm = (q: string) => `https://www.openstreetmap.org/search?query=${encodeURIComponent(q + ' Montpellier')}`;
+---
+<Base
+  title="Infos pratiques, tarifs et accès | Festival Arabesques"
+  description="Tarifs, pass, accès et accessibilité aux lieux du festival Arabesques à Montpellier : Domaine d’O, Opéra Comédie et Halle Tropisme. Infoligne : 04 99 77 00 17."
+>
+  <PageHead align="left" label="Avant de venir" title="Informations pratiques" />
+
+  <section class="block section" aria-labelledby="contact-t">
+    <p class="label" data-reveal="left">Nous contacter</p>
+    <div data-reveal="right">
+      <h2 id="contact-t" class="display">Infoligne : <a href="tel:+33499770017">{site.phone}</a></h2>
+      <p>{site.hours}</p>
+      <p>Association UNi’SONS<br />475 Avenue du Comté de Nice, Montpellier</p>
+      <a class="bracket" href="https://www.unisons.fr/qui-sommes-nous" target="_blank" rel="noopener">L’équipe du festival</a>
+    </div>
+  </section>
+
+  <section class="block section" aria-labelledby="tarifs-t">
+    <p class="label" data-reveal="left">Les tarifs</p>
+    <div data-reveal="right">
+      <h2 id="tarifs-t" class="display">Tarifs et pass</h2>
+      <dl>{tarifs.map(([k, v]) => <div><dt>{k}</dt><dd>{v}</dd></div>)}</dl>
+      <p class="note">* Justificatifs à présenter à l’entrée des spectacles. Tarifs jeunes sur le Pass Culture et Yoot.</p>
+      <h3 class="display">Nouvelle formule pass</h3>
+      <dl>{pass.map(([k, v]) => <div><dt>{k}</dt><dd>{v}</dd></div>)}</dl>
+    </div>
+  </section>
+
+  <section class="block section" aria-labelledby="lieux-t">
+    <p class="label" data-reveal="left">Se rendre au festival</p>
+    <div data-reveal="right">
+      <h2 id="lieux-t" class="display">Les lieux du festival à Montpellier</h2>
+      {lieux.map((l) => (
+        <article class="lieu" id={l.id}>
+          <h3 class="display">{l.nom}</h3>
+          <p>{l.adresse.join(', ')}</p>
+          <dl>{l.acces.map(([k, v]) => <div><dt>{k}</dt><dd>{v}</dd></div>)}</dl>
+          <p class="links">
+            <a class="bracket" href={osm(l.adresse.join(' '))} target="_blank" rel="noopener">Voir sur la carte</a>
+            {l.lien && <a class="bracket" href={l.lien.href} target="_blank" rel="noopener">{l.lien.label}</a>}
+          </p>
+        </article>
+      ))}
+    </div>
+  </section>
+  <BigCta />
+</Base>
+
+<style>
+  .block { display: grid; grid-template-columns: 448px 1fr; border-top: 1px solid var(--line); padding-block: 72px; }
+  h2 { font-size: var(--text-4xl); line-height: 1.1; margin-bottom: 28px; max-width: 900px; }
+  h2 a:hover { color: var(--white); }
+  h3 { font-size: var(--text-3xl); line-height: 1.15; margin: 44px 0 16px; }
+  .block > div > p { margin-bottom: 14px; }
+  .block .bracket { display: inline-block; margin-top: 16px; }
+  dl { max-width: 880px; }
+  dl > div { display: grid; grid-template-columns: minmax(150px, 280px) 1fr; gap: 24px; padding: 14px 0; border-top: 1px solid var(--line); }
+  dt { color: var(--white); font-weight: 500; }
+  dd { margin: 0; }
+  .note { margin-top: 14px; font-size: 14px; }
+  .lieu { margin-top: 56px; }
+  .lieu h3 { margin-top: 0; }
+  .links { display: flex; flex-wrap: wrap; gap: 32px; margin-top: 8px; }
+  @media (max-width: 1100px) { .block { grid-template-columns: 1fr; gap: 24px; padding-block: 56px; } }
+  @media (max-width: 900px) {
+    .block { grid-template-columns: 1fr; gap: 24px; padding-block: 48px; }
+    dl > div { grid-template-columns: 1fr; gap: 4px; }
+  }
+</style>

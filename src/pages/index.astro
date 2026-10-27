@@ -1,0 +1,48 @@
+---
+import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
+import Marquee from '../components/Marquee.astro';
+import About from '../components/About.astro';
+import Featured from '../components/Featured.astro';
+import Stats from '../components/Stats.astro';
+import Showcase from '../components/Showcase.astro';
+import BigCta from '../components/BigCta.astro';
+import Venues from '../components/Venues.astro';
+import { ids } from '../data/site';
+const place = (name: string, street: string, postal: string) => ({
+  '@type': 'Place', name, address: { '@type': 'PostalAddress', streetAddress: street, postalCode: postal, addressLocality: 'Montpellier', addressCountry: 'FR' },
+});
+const locations = [
+  place('Opéra Comédie', '11 Boulevard Victor Hugo', '34000'),
+  place('Domaine d’O', '178 Rue de la Carrierasse', '34090'),
+  place('Halle Tropisme', '121 Rue Fontcouverte', '34000'),
+];
+const organizer = { '@type': 'Organization', '@id': ids.org, name: 'UNi’SONS', url: 'https://www.unisons.fr/' };
+const festival = (id: string | undefined, name: string, start: string, end: string, status: string) => ({
+  '@type': 'Festival', ...(id ? { '@id': id } : {}), name, startDate: start, endDate: end, eventStatus: status,
+  eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode', location: locations, organizer,
+  url: 'https://www.festivalarabesques.fr/', inLanguage: 'fr-FR',
+  image: 'https://www.festivalarabesques.fr/og-default.jpg',
+});
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    festival(ids.festival2026, 'Festival Arabesques 2026', '2026-09-08', '2026-09-20', 'https://schema.org/EventScheduled'),
+    festival(undefined, 'Festival Arabesques 2027', '2027-09-07', '2027-09-19', 'https://schema.org/EventScheduled'),
+  ],
+};
+---
+<Base
+  title="Festival Arabesques | Montpellier, cultures du monde arabe"
+  description="Festival Arabesques à Montpellier : musique, danse, cinéma et rencontres des cultures arabes. Retour sur l’édition du 8 au 20 septembre 2026."
+>
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(jsonLd)} />
+  <Hero />
+  <Marquee />
+  <About />
+  <Featured />
+  <Stats />
+  <Showcase />
+  <Venues />
+  <BigCta />
+</Base>

@@ -1,0 +1,99 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
+import BigCta from '../components/BigCta.astro';
+import { Picture } from 'astro:assets';
+import data from '../data/caravane.json';
+import { loadCms, toImageMetadata, picProps, widthsFor } from '../lib/cms';
+
+// Contenu édité dans Sanity (texte, à venir, archives) ; sans Sanity ou sans événement saisi, fichier local d'origine
+const cms = await loadCms();
+const images = import.meta.glob<{ default: ImageMetadata }>('../assets/caravane/*.{jpg,png}', { eager: true });
+const fromCms = Boolean(cms?.caravane?.length);
+const intro = cms?.caravaneIntro || data.intro;
+const upcoming = fromCms
+  ? cms!.caravane.filter((e) => e.kind === 'upcoming').map((e) => ({ name: e.title, when: e.when, url: e.url }))
+  : data.upcoming.map((e) => ({ ...e }));
+const past = (fromCms
+  ? cms!.caravane.filter((e) => e.kind === 'past').map((e) => ({ title: e.title, when: e.when, url: e.url ?? null, img: e.image ? toImageMetadata(e.image) : undefined }))
+  : data.past.map((e) => ({ title: e.title, when: e.when, url: e.url, img: images[`../assets/caravane/${e.image}`]?.default }))
+).filter((e) => e.img);
+---
+<Base
+  title="La Caravane Arabesques en Occitanie | Festival Arabesques"
+  description="Entre deux éditions, la Caravane Arabesques se déplace dans les villes, villages, écoles et théâtres pour faire découvrir les arts du monde arabe."
+>
+  <PageHead align="left" label="Entre deux éditions" title="La Caravane Arabesques" />
+  <section class="intro section">
+    <p class="label" data-reveal="left">Le principe</p>
+    <p class="display" data-reveal="right" data-highlight>{intro}</p>
+  </section>
+
+  <section class="section up" aria-labelledby="up-t">
+    <p class="label" data-reveal="bottom">À venir</p>
+    <h2 id="up-t" class="display" data-reveal="bottom" data-reveal-delay="80">Les prochaines caravanes près de chez vous</h2>
+    {upcoming.length === 0 && <p class="vide" data-reveal="bottom">Aucune caravane n’est programmée pour le moment. Revenez bientôt.</p>}
+    <ul class="rows">
+      {upcoming.map((e, i) => (
+        <li data-reveal="bottom" data-reveal-delay={i * 120}>
+          <h3 class="display">{e.name}</h3>
+          <p class="label">{e.when}</p>
+          {e.url && <a class="bracket" href={e.url} target="_blank" rel="noopener" data-roll-text="Plus d’infos" data-roll-sr={` (${e.name}, nouvel onglet)`}>Plus d’infos<span class="visually-hidden"> ({e.name}, nouvel onglet)</span></a>}
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <section class="section past" aria-labelledby="past-t">
+    <p class="label" data-reveal="bottom">Archives</p>
+    <h2 id="past-t" class="display" data-reveal="bottom" data-reveal-delay="80">Événements passés</h2>
+    <ul class="gallery">
+      {past.map((e, i) => (
+        <li data-reveal="bottom" data-reveal-delay={(i % 3) * 120}>
+          {e.url ? (
+            <a class="tile" href={e.url} target="_blank" rel="noopener">
+              <Picture {...picProps(e.img!)} formats={['avif', 'webp']} fallbackFormat="webp" widths={widthsFor(e.img!, [380, 760])} sizes="(max-width: 600px) 100vw, (max-width: 900px) 50vw, 380px" alt="" loading="lazy" />
+              <span class="cap"><strong class="display">{e.title}</strong><span>{e.when}</span></span>
+              <span class="visually-hidden"> (nouvel onglet)</span>
+            </a>
+          ) : (
+            <div class="tile" role="group" aria-label={`${e.title}, ${e.when}`} tabindex="0">
+              <Picture {...picProps(e.img!)} formats={['avif', 'webp']} fallbackFormat="webp" widths={widthsFor(e.img!, [380, 760])} sizes="(max-width: 600px) 100vw, (max-width: 900px) 50vw, 380px" alt="" loading="lazy" />
+              <span class="cap"><strong class="display">{e.title}</strong><span>{e.when}</span></span>
+            </div>
+          )}
+        </li>
+      ))}
+    </ul>
+  </section>
+  <BigCta />
+</Base>
+
+<style>
+  .intro { display: grid; grid-template-columns: 448px 1fr; padding-block: 40px 100px; }
+  .intro .display { font-size: 32px; line-height: 1.35; letter-spacing: -0.02em; max-width: 872px; }
+  .up, .past { border-top: 1px solid var(--line); }
+  h2 { font-size: var(--text-5xl); line-height: 1.1; margin: 24px 0 40px; max-width: 1000px; }
+  .vide { color: var(--text); margin-bottom: 24px; }
+  .rows li { display: grid; grid-template-columns: 1fr 1fr auto; gap: 24px; align-items: baseline; padding: 28px 0; border-top: 1px solid var(--line); }
+  .rows h3 { font-size: var(--text-3xl); line-height: 1.1; }
+  .gallery { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; }
+  .tile { position: relative; display: block; aspect-ratio: 1; overflow: hidden; background: #222; }
+  .tile :global(img) { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .cap { position: absolute; inset: 0; display: grid; place-content: center; gap: 6px; padding: 24px; text-align: center; color: #fff; background: rgba(0, 0, 0, .62); opacity: 0; transition: opacity .25s; }
+  .cap strong { color: #fff; font-size: 24px; line-height: 1.15; }
+  .cap span { font-size: 14px; letter-spacing: .08em; text-transform: uppercase; }
+  .tile:hover .cap, .tile:focus-visible .cap, .tile:focus-within .cap { opacity: 1; }
+  @media (hover: none) {
+    .cap { opacity: 1; place-content: end start; text-align: left; background: linear-gradient(to top, rgba(0, 0, 0, .78), transparent 55%); }
+    .cap strong { font-size: 18px; }
+  }
+  @media (max-width: 1100px) { .intro { grid-template-columns: 1fr; gap: 24px; } }
+  @media (max-width: 900px) {
+    .intro { grid-template-columns: 1fr; gap: 24px; }
+    .intro .display { font-size: 24px; }
+    .rows li { grid-template-columns: 1fr; gap: 8px; }
+    .gallery { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 600px) { .gallery { grid-template-columns: 1fr; } }
+</style>

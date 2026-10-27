@@ -1,0 +1,74 @@
+---
+import { Image } from 'astro:assets';
+import logo from '../assets/logo/arabesques.png';
+import { nav, menu, social } from '../data/site';
+---
+<header class="nav">
+  <a class="brand" href="/" aria-label="Festival Arabesques, accueil">
+    <Image src={logo} alt="Arabesques Festival" width={120} height={29} densities={[1, 1.5]} loading="eager" format="webp" />
+  </a>
+  <nav class="links" aria-label="Navigation principale">
+    {nav.map((l) => <a href={l.href}>{l.label}</a>)}
+    <span class="dot" aria-hidden="true"></span>
+  </nav>
+  <button class="menu-btn" type="button" aria-haspopup="dialog" aria-controls="menu-overlay" id="menu-open">Menu</button>
+
+  <dialog id="menu-overlay" aria-label="Menu">
+    <div class="ov-top">
+      <a class="brand" href="/" aria-label="Accueil"><Image src={logo} alt="Arabesques Festival" width={120} height={29} densities={[1, 1.5]} format="webp" /></a>
+      <button class="menu-btn" type="button" id="menu-close">Fermer</button>
+    </div>
+    <ul class="ov-list">
+      {menu.map((l, i) => <li style={`--k:${i}`}><a class="display" href={l.href}>{l.label}</a></li>)}
+    </ul>
+    <ul class="ov-social">
+      {social.map((s, i) => <li style={`--k:${menu.length + i}`}><a class="bracket" href={s.href} rel="noopener" target="_blank" data-roll-text={s.label} data-roll-sr=" (nouvel onglet)">{s.label}<span class="visually-hidden"> (nouvel onglet)</span></a></li>)}
+    </ul>
+  </dialog>
+</header>
+
+<style>
+  .nav {
+    position: absolute; inset: 0 0 auto 0; z-index: 20;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 84px; padding: 0 var(--pad);
+  }
+  .brand img { height: 29px; width: auto; }
+  .links { display: flex; align-items: center; gap: 38px; margin-left: auto; margin-right: 56px; }
+  .links a, .menu-btn {
+    font: 500 14px/1 var(--font-body); letter-spacing: .2em; text-transform: uppercase;
+    color: var(--white); background: none; border: 0; cursor: pointer; padding: 8px 0;
+  }
+  .links a:hover, .menu-btn:hover { color: var(--pink-soft); }
+  .dot { width: 8px; height: 8px; background: var(--pink); margin-left: 22px; }
+  dialog {
+    inset: 0; width: 100%; height: 100%; max-width: none; max-height: none;
+    margin: 0; border: 0; padding: 0 var(--pad) 40px; background: var(--bg); color: var(--text);
+  }
+  dialog::backdrop { background: var(--bg); }
+  .ov-top { display: flex; justify-content: space-between; align-items: center; height: 84px; }
+  .ov-list { display: grid; gap: 4px; margin-top: 24px; }
+  .ov-list a { font-size: var(--text-3xl); line-height: 1.25; }
+  .ov-list a:hover { color: var(--white); }
+  .ov-social { display: flex; flex-wrap: wrap; gap: 24px; margin-top: 40px; }
+  .links a { white-space: nowrap; }
+  @media (max-width: 1100px) {
+    .links { gap: 22px; margin-right: 28px; }
+    .links a { letter-spacing: .14em; }
+    .dot { margin-left: 10px; }
+  }
+  @media (max-width: 960px) { .links { display: none; } }
+  @media (max-width: 900px) {
+    .links { display: none; }
+    .nav { height: 72px; }
+  }
+</style>
+
+<script>
+  const dlg = document.getElementById('menu-overlay') as HTMLDialogElement | null;
+  const lock = (on: boolean) => { document.documentElement.style.overflow = on ? 'hidden' : ''; };
+  document.getElementById('menu-open')?.addEventListener('click', () => { dlg?.showModal(); lock(true); });
+  dlg?.addEventListener('close', () => lock(false)); // Échap, bouton Fermer ou clic sur un lien
+  document.getElementById('menu-close')?.addEventListener('click', () => dlg?.close());
+  dlg?.addEventListener('click', (e) => { if ((e.target as HTMLElement).tagName === 'A') dlg.close(); });
+</script>

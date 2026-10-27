@@ -1,0 +1,32 @@
+---
+import { stats } from '../data/site';
+---
+<section class="stats section" aria-labelledby="stats-title">
+  <p class="label" data-reveal="bottom">Bilan</p>
+  <h2 id="stats-title" class="display" data-reveal="bottom" data-reveal-delay="80">L’édition 2026 en chiffres</h2>
+  <p class="sub upper" data-reveal="bottom" data-reveal-delay="160">Chiffres du communiqué de presse 2026.</p>
+  <ul class="cols">
+    {stats.map((s, i) => (
+      <li data-reveal="bottom" data-reveal-delay={200 + i * 150}>
+        <p class="q display">{s.value}</p>
+        <p class="note">{s.note}</p>
+        <p class="who label"><span>{s.who}</span><i aria-hidden="true"></i><span>Montpellier</span></p>
+      </li>
+    ))}
+  </ul>
+</section>
+
+<style>
+  .stats { min-height: 802px; padding-block: 80px; }
+  h2 { font-size: var(--text-5xl); line-height: 1.1; margin-top: 28px; }
+  .sub { margin-top: 24px; }
+  .cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: 60px 24px; margin-top: 180px; }
+  .q { font-size: 36px; line-height: 1.05; }
+  .note { margin-top: 12px; }
+  .who { display: flex; gap: 14px; align-items: center; margin-top: 28px; color: var(--text); font-size: 13px; }
+  .who i { width: 8px; height: 8px; background: var(--white); display: inline-block; }
+  @media (max-width: 900px) {
+    .stats { min-height: 0; padding-block: 56px; }
+    .cols { grid-template-columns: 1fr; margin-top: 48px; gap: 40px; }
+  }
+</style>

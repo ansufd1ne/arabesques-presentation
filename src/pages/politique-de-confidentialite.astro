@@ -1,0 +1,21 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
+import Prose from '../components/Prose.astro';
+import brut from '../data/legal/politique-de-confidentialite.html?raw';
+// Le commentaire de tête (note de validation pour l'association) n'est pas publié.
+const html = brut.replace(/<!--[\s\S]*?-->\s*/g, '');
+---
+<Base
+  title="Politique de confidentialité | Festival Arabesques"
+  description="Comment le site du Festival Arabesques traite vos données : newsletter, formulaire de contact, vidéo YouTube au clic, aucun cookie publicitaire, vos droits."
+>
+  <PageHead align="left" label="Données personnelles" title="Politique de confidentialité" />
+  <Prose html={html} />
+</Base>
+
+<style is:global>
+  .prose ul { margin: 0 0 18px; padding-left: 22px; list-style: disc; }
+  .prose li { margin-bottom: 10px; }
+  .prose strong { color: var(--white); font-weight: 500; }
+</style>

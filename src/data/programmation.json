@@ -1,0 +1,219 @@
+{
+ "sections": [
+  {
+   "title": "L’ouverture à l’Opéra",
+   "dates": "Mardi 8 et mercredi 9 septembre",
+   "venue": "Opéra Comédie",
+   "id": "opera"
+  },
+  {
+   "title": "Le 1er week-end au Domaine d’O",
+   "dates": "Du vendredi 11 au dimanche 13 septembre",
+   "venue": "Domaine d’O",
+   "id": "domaine-1"
+  },
+  {
+   "title": "Arabesques Sound System",
+   "dates": "Jeudi 17 septembre, 19h30 à 00h45 · 100 % féminin",
+   "venue": "Halle Tropisme",
+   "id": "sound-system"
+  },
+  {
+   "title": "Le 2e week-end au Domaine d’O",
+   "dates": "Du vendredi 18 au dimanche 20 septembre",
+   "venue": "Domaine d’O",
+   "id": "domaine-2"
+  }
+ ],
+ "artists": [
+  {
+   "slug": "oum",
+   "name": "OUM",
+   "date": "2026-09-08",
+   "dateLabel": "08 sept.",
+   "complet": true,
+   "section": 0,
+   "image": "oum.jpg"
+  },
+  {
+   "slug": "bachar-mar-khalife",
+   "name": "BACHAR MAR-KHALIFÉ",
+   "date": "2026-09-09",
+   "dateLabel": "09 sept.",
+   "complet": false,
+   "section": 0,
+   "image": "bachar-mar-khalife.jpg"
+  },
+  {
+   "slug": "imarhan",
+   "name": "IMARHAN",
+   "date": "2026-09-11",
+   "dateLabel": "11 sept.",
+   "complet": true,
+   "section": 1,
+   "image": "imarhan.jpg"
+  },
+  {
+   "slug": "anouar-brahem-quartet",
+   "name": "ANOUAR BRAHEM QUARTET",
+   "date": "2026-09-11",
+   "dateLabel": "11 sept.",
+   "complet": false,
+   "section": 1,
+   "image": "anouar-brahem-quartet.jpg"
+  },
+  {
+   "slug": "l-antidote",
+   "name": "L’ANTIDOTE",
+   "date": "2026-09-12",
+   "dateLabel": "12 sept.",
+   "complet": false,
+   "section": 1,
+   "image": "l-antidote.jpg"
+  },
+  {
+   "slug": "zar-electrik-temenik-electric",
+   "name": "ZAR ELECTRIK + TEMENIK ELECTRIC",
+   "date": "2026-09-12",
+   "dateLabel": "12 sept.",
+   "complet": false,
+   "section": 1,
+   "image": "zar-electrik-temenik-electric.png"
+  },
+  {
+   "slug": "sahravane-souad-asla-omar-sosa-lemma",
+   "name": "SAHRAVANE : SOUAD ASLA, OMAR SOSA & LEMMA",
+   "date": "2026-09-12",
+   "dateLabel": "12 sept.",
+   "complet": false,
+   "section": 1,
+   "image": "sahravane-souad-asla-omar-sosa-lemma.jpg"
+  },
+  {
+   "slug": "meryem-aboulouafa",
+   "name": "MERYEM ABOULOUAFA",
+   "date": "2026-09-13",
+   "dateLabel": "13 sept.",
+   "complet": false,
+   "section": 1,
+   "image": "meryem-aboulouafa.jpg"
+  },
+  {
+   "slug": "amine-radi",
+   "name": "AMINE RADI",
+   "date": "2026-09-13",
+   "dateLabel": "13 sept.",
+   "complet": true,
+   "section": 1,
+   "image": "amine-radi.jpg"
+  },
+  {
+   "slug": "daoud",
+   "name": "DAOUD",
+   "date": "2026-09-13",
+   "dateLabel": "13 sept.",
+   "complet": false,
+   "section": 1,
+   "image": "daoud.jpg"
+  },
+  {
+   "slug": "zina-daoudia",
+   "name": "ZINA DAOUDIA",
+   "date": "2026-09-13",
+   "dateLabel": "13 sept.",
+   "complet": true,
+   "section": 1,
+   "image": "zina-daoudia.jpg"
+  },
+  {
+   "slug": "kbira-yasmina-karrum-la-louuve",
+   "name": "KBIRA + YASMINA KARRUM + LA LOUUVE",
+   "date": "2026-09-17",
+   "dateLabel": "17 sept.",
+   "complet": false,
+   "section": 2,
+   "image": "kbira-yasmina-karrum-la-louuve.png"
+  },
+  {
+   "slug": "sofiane-saidi-dzair",
+   "name": "SOFIANE SAIDI, DZAÏR",
+   "date": "2026-09-18",
+   "dateLabel": "18 sept.",
+   "complet": false,
+   "section": 3,
+   "image": "sofiane-saidi-dzair.jpg"
+  },
+  {
+   "slug": "ino-casablanca",
+   "name": "INO CASABLANCA",
+   "date": "2026-09-18",
+   "dateLabel": "18 sept.",
+   "complet": true,
+   "section": 3,
+   "image": "ino-casablanca.jpg"
+  },
+  {
+   "slug": "merwane-benlazar",
+   "name": "MERWANE BENLAZAR",
+   "date": "2026-09-19",
+   "dateLabel": "19 sept.",
+   "complet": false,
+   "section": 3,
+   "image": "merwane-benlazar.jpg"
+  },
+  {
+   "slug": "yasmine-hamdan",
+   "name": "YASMINE HAMDAN",
+   "date": "2026-09-19",
+   "dateLabel": "19 sept.",
+   "complet": false,
+   "section": 3,
+   "image": "yasmine-hamdan.jpg"
+  },
+  {
+   "slug": "emel-camelia-jordana",
+   "name": "EMEL+ CAMÉLIA JORDANA",
+   "date": "2026-09-19",
+   "dateLabel": "19 sept.",
+   "complet": false,
+   "section": 3,
+   "image": "emel-camelia-jordana.png"
+  },
+  {
+   "slug": "abdullah-miniawy",
+   "name": "ABDULLAH MINIAWY",
+   "date": "2026-09-20",
+   "dateLabel": "20 sept.",
+   "complet": false,
+   "section": 3,
+   "image": "abdullah-miniawy.jpg"
+  },
+  {
+   "slug": "samifati-transe-gnawa-express",
+   "name": "SAMIFATI & TRANSE GNAWA EXPRESS",
+   "date": "2026-09-20",
+   "dateLabel": "20 sept.",
+   "complet": false,
+   "section": 3,
+   "image": "samifati-transe-gnawa-express.jpg"
+  },
+  {
+   "slug": "abdelkader-secteur",
+   "name": "ABDELKADER SECTEUR",
+   "date": "2026-09-20",
+   "dateLabel": "20 sept.",
+   "complet": false,
+   "section": 3,
+   "image": "abdelkader-secteur.jpg"
+  },
+  {
+   "slug": "souad-massi",
+   "name": "SOUAD MASSI",
+   "date": "2026-09-20",
+   "dateLabel": "20 sept.",
+   "complet": false,
+   "section": 3,
+   "image": "souad-massi.jpg"
+  }
+ ]
+}

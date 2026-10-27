@@ -1,0 +1,41 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHead from '../../components/PageHead.astro';
+import BigCta from '../../components/BigCta.astro';
+import { site } from '../../data/site';
+import { loadCms } from '../../lib/cms';
+
+// Blocs édités dans Sanity ; sans Sanity ou sans bloc saisi, liste d'origine
+const cms = await loadCms();
+const items = cms?.presse?.length ? cms.presse : [
+  { label: 'Édition 2026', title: 'Communiqué de presse 2026', text: 'Arabesques, l’élan d’un rêve méditerranéen : le bilan de la 21e édition.', linkLabel: 'Lire le communiqué', url: '/presse/communique-2026', external: false },
+  { label: 'Professionnels', title: 'Accès à l’espace médias', text: 'Accès réservé aux médias, sur identifiant.', linkLabel: 'Accéder à l’espace', url: 'https://www.extrazik.com/arabesques-presse/login', external: true },
+  { label: 'Contact', title: 'Demande d’interview', text: `Infoligne : ${site.phone}`, linkLabel: 'Nous écrire', url: '/contact', external: false },
+];
+---
+<Base
+  title="Presse | Espace médias du festival Arabesques"
+  description="Espace médias du festival Arabesques : communiqué de presse 2026, accès à l’espace presse et demandes d’interview."
+>
+  <PageHead align="left" label="Espace médias" title="Presse" sub="Pour toute demande d’interview, n’hésitez pas à nous contacter" />
+  <section class="section list">
+    {items.map((it, i) => (
+      <a class="item" data-reveal="bottom" data-reveal-delay={i * 120} href={it.url} target={it.external ? '_blank' : undefined} rel={it.external ? 'noopener' : undefined}>
+        <p class="label">{it.label}</p>
+        <h2 class="display">{it.title}</h2>
+        <p>{it.text}</p>
+        <span class="bracket">{it.linkLabel}{it.external && <span class="visually-hidden"> (nouvel onglet)</span>}</span>
+      </a>
+    ))}
+  </section>
+  <BigCta />
+</Base>
+
+<style>
+  .list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; padding-block: 24px 100px; }
+  .item { display: grid; gap: 16px; align-content: start; padding: 28px; background: var(--bg-2); min-height: 340px; }
+  .item h2 { font-size: var(--text-3xl); line-height: 1.1; }
+  .item .bracket { margin-top: auto; }
+  .item:hover h2 { color: var(--pink-soft); }
+  @media (max-width: 900px) { .list { grid-template-columns: 1fr; } .item { min-height: 0; } }
+</style>

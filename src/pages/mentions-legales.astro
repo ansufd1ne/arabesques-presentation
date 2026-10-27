@@ -1,0 +1,10 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
+import Prose from '../components/Prose.astro';
+import html from '../data/legal/mentions-legales.html?raw';
+---
+<Base title="Mentions légales | Festival Arabesques" description="Mentions légales du site du festival Arabesques : éditeur, association UNi’SONS à Montpellier, direction de la publication, données personnelles.">
+  <PageHead align="left" label="Informations légales" title="Mentions légales" />
+  <Prose html={html} />
+</Base>

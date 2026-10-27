@@ -1,0 +1,42 @@
+---
+import { Picture } from 'astro:assets';
+import { picProps, widthsFor } from '../lib/cms';
+import { type Concert, shortDate, properName } from '../data/artists';
+interface Props { concert: Concert; eager?: boolean; }
+const { concert: c, eager = false } = Astro.props;
+---
+<article class="row" data-reveal="bottom">
+  <p class="date label">{shortDate(c.date)}</p>
+  <div class="txt">
+    <h3 class="display" id={`c-${c.slug}`}><a href={`/programmation/${c.slug}`}>{c.name}</a></h3>
+    <p class="meta upper">{c.venue || 'Montpellier'}{c.complet && <span class="badge"> · Complet</span>}</p>
+    <a class="bracket more" href={`/programmation/${c.slug}`} aria-describedby={`c-${c.slug}`}>Voir la fiche</a>
+  </div>
+  <a class="thumb-wrap" data-view href={`/programmation/${c.slug}`} tabindex="-1" aria-hidden="true">
+    <span class="view" aria-hidden="true">Voir</span>
+    <Picture class="thumb" {...picProps(c.image)} formats={['avif', 'webp']} fallbackFormat="webp" widths={widthsFor(c.image, [282, 564])} sizes="282px" alt={`${properName(c.name)}, festival Arabesques 2026`} loading={eager ? 'eager' : 'lazy'} fetchpriority={eager ? 'high' : undefined} />
+  </a>
+</article>
+
+<style>
+  .row { display: grid; grid-template-columns: 224px 1fr 282px; gap: 0 0; padding: 24px 0; border-top: 1px solid var(--line); }
+  .date { padding-top: 6px; color: var(--text); }
+  h3 { font-size: var(--text-3xl); line-height: 1.2; }
+  h3 a:hover { color: var(--pink-soft); }
+  .meta { margin-top: 12px; }
+  .badge { color: var(--pink-soft); font-weight: 600; }
+  .more { display: inline-block; margin-top: 56px; }
+  .thumb-wrap { display: block; width: 282px; height: 290px; }
+  .thumb-wrap :global(img) { display: block; width: 100%; height: 100%; object-fit: cover; }
+  /* Empilement : chaque ligne se colle en haut, la suivante glisse par-dessus (fond opaque, ordre du DOM).
+     Écran large uniquement ; le parent (.grp) borne la course, la pile repart d'un bloc en fin de groupe. */
+  @media (min-width: 901px) and (prefers-reduced-motion: no-preference) {
+    .row { position: sticky; top: 60px; background: var(--bg); }
+    .row:focus-within { z-index: 2; } /* une ligne focalisée au clavier ne reste pas cachée sous la suivante */
+  }
+  @media (max-width: 900px) {
+    .row { grid-template-columns: 1fr; gap: 14px; }
+    .more { margin-top: 12px; }
+    .thumb-wrap { width: 100%; height: auto; aspect-ratio: 1/1; order: -1; }
+  }
+</style>

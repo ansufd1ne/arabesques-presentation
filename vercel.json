@@ -1,0 +1,166 @@
+{
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "redirects": [
+    {
+      "source": "/festival/festival",
+      "destination": "/festival",
+      "permanent": true
+    },
+    {
+      "source": "/festival/festival/",
+      "destination": "/festival",
+      "permanent": true
+    },
+    {
+      "source": "/informations-pratiques/informations-pratiques-2",
+      "destination": "/informations-pratiques",
+      "permanent": true
+    },
+    {
+      "source": "/informations-pratiques/informations-pratiques-2/",
+      "destination": "/informations-pratiques",
+      "permanent": true
+    },
+    {
+      "source": "/festival/informations-pratiques",
+      "destination": "/informations-pratiques",
+      "permanent": true
+    },
+    {
+      "source": "/festival/informations-pratiques/",
+      "destination": "/informations-pratiques",
+      "permanent": true
+    },
+    {
+      "source": "/festival/programmation-festival-arabesques-2026",
+      "destination": "/programmation",
+      "permanent": true
+    },
+    {
+      "source": "/festival/programmation-festival-arabesques-2026/",
+      "destination": "/programmation",
+      "permanent": true
+    },
+    {
+      "source": "/festival/communique-presse-festival-arabesques-2026",
+      "destination": "/presse/communique-2026",
+      "permanent": true
+    },
+    {
+      "source": "/festival/communique-presse-festival-arabesques-2026/",
+      "destination": "/presse/communique-2026",
+      "permanent": true
+    },
+    {
+      "source": "/programmation-gratuite-festival-arabesques-arabesques-music-forum-montpellier-2026",
+      "destination": "/arabesques-music-forum",
+      "permanent": true
+    },
+    {
+      "source": "/programmation-gratuite-festival-arabesques-arabesques-music-forum-montpellier-2026/",
+      "destination": "/arabesques-music-forum",
+      "permanent": true
+    },
+    {
+      "source": "/sitemap",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/sitemap/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/index.php",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/index.php/",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/caravane-arabesques/2-uncategorised/295-kaldun-theatre-musical-creation-19-octobre",
+      "destination": "/caravane-arabesques",
+      "permanent": true
+    },
+    {
+      "source": "/caravane-arabesques/2-uncategorised/295-kaldun-theatre-musical-creation-19-octobre/",
+      "destination": "/caravane-arabesques",
+      "permanent": true
+    },
+    {
+      "source": "/creation-arabesques/nooba",
+      "destination": "/caravane-arabesques",
+      "permanent": true
+    },
+    {
+      "source": "/creation-arabesques/nooba/",
+      "destination": "/caravane-arabesques",
+      "permanent": true
+    },
+    {
+      "source": "/creation-arabesques/le-lanceur-de-des",
+      "destination": "/caravane-arabesques",
+      "permanent": true
+    },
+    {
+      "source": "/creation-arabesques/le-lanceur-de-des/",
+      "destination": "/caravane-arabesques",
+      "permanent": true
+    },
+    {
+      "source": "/creation-arabesques/alchimix",
+      "destination": "/caravane-arabesques",
+      "permanent": true
+    },
+    {
+      "source": "/creation-arabesques/alchimix/",
+      "destination": "/caravane-arabesques",
+      "permanent": true
+    }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "SAMEORIGIN"
+        },
+        {
+          "key": "Permissions-Policy",
+          "value": "camera=(), microphone=(), geolocation=()"
+        },
+        {
+          "key": "Strict-Transport-Security",
+          "value": "max-age=31536000"
+        },
+        {
+          "key": "Content-Security-Policy",
+          "value": "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; frame-src https://www.youtube-nocookie.com; connect-src 'self'; form-action 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'self'"
+        }
+      ]
+    },
+    {
+      "source": "/_astro/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    }
+  ]
+}
